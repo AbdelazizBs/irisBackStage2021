@@ -10,20 +10,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-
 @Getter
 @Setter
 @ToString
 
 @AllArgsConstructor
-@Document(collection = "commande")
-public class Commande {
+@Document(collection = "ordreFabrication")
+public class OrdreFabrication {
     @Id
     private String id ;
-    private Date dateCmd ;
-    private  String numCmd ;
-    private  String typeCmd ;
-    private  Client client;
-    private Article article ;
-
+    private Date dateLancement ;
+    private  Date debutHeure ;
+    private  Date finHeure ;
+    private  String commentaire ;
+    private  String quentitePremierChoix ;
+    private  String quentiteNonConforme ;
 }

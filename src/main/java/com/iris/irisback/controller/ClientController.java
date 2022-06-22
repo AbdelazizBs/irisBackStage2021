@@ -5,31 +5,26 @@ import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.mapper.ClientMapper;
 import com.iris.irisback.model.Client;
 import com.iris.irisback.repository.ClientRepository;
+import com.iris.irisback.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/client")
 @CrossOrigin(origins = "*")
 public class ClientController {
     @Autowired
-    ClientRepository clientRepository ;
+    ClientService clientService ;
 
 @PostMapping("/addClient")
     public ClientDTO addClient(@RequestBody  Client client){
-  /* ClientDTO clientDTO = new ClientDTO();
-    clientDTO.setAddress(client.getAddress());
-    clientDTO.setCompany(client.getCompany());
-    clientDTO.setCountry(client.getCountry());
-    clientDTO.setEmail(client.getEmail());
-    clientDTO.setFirstName(client.getFirstName());
-    clientDTO.setId(client.getId());
-    clientDTO.setLastName(client.getLastName());
-    clientDTO.setLogin(client.getLogin());
-    clientDTO.setPassword(client.getPassword());
-    clientDTO.setPhone(client.getPhone());
-    Client cl = ClientMapper.MAPPER.toClient(clientDTO);*/
-    return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
-   //     return  clientRepository.save(client);
+    try {
+        return clientService.addClient(client);
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+    //     return  clientRepository.save(client);
     }
 }

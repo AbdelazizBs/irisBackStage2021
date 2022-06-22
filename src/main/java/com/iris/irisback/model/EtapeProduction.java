@@ -1,6 +1,5 @@
 package com.iris.irisback.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,22 +7,20 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 
 @Getter
 @Setter
 @ToString
 
 @AllArgsConstructor
-@Document(collection = "commande")
-public class Commande {
+@Document(collection = "etapeProduction")
+public class EtapeProduction {
     @Id
     private String id ;
-    private Date dateCmd ;
-    private  String numCmd ;
-    private  String typeCmd ;
-    private  Client client;
-    private Article article ;
+    private  String nomEtape ;
+    private String typeEtape  ;
 
+    public EtapeProduction() {
+
+    }
 }

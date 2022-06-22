@@ -7,9 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ArticleDTO {
-
-    private String id ;
-    private  String codeArticle ;
-    private  String designation ;
+public class EtapeProductionDTO {
 }

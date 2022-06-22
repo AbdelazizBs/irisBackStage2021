@@ -1,11 +1,13 @@
 package com.iris.irisback.dto;
 
+import com.iris.irisback.model.Article;
 import com.iris.irisback.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -17,4 +19,9 @@ public class CommandeDTO {
     private  String numCmd ;
     private  String typeCmd ;
     private Client client;
+    private Article article ;
+
+    public CommandeDTO() {
+
+    }
 }
