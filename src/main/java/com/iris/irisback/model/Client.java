@@ -28,6 +28,7 @@ public class Client {
     private String email ;
     private String login ;
         private String password ;
+  private List<Commande> commandes;
 
 
     public Client() {

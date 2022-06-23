@@ -2,6 +2,7 @@ package com.iris.irisback.controller;
 
 import com.iris.irisback.dto.ArticleDTO;
 import com.iris.irisback.dto.ClientDTO;
+import com.iris.irisback.dto.MachineDTO;
 import com.iris.irisback.mapper.ClientMapper;
 import com.iris.irisback.model.Article;
 import com.iris.irisback.model.Client;
@@ -20,13 +21,20 @@ public class ArticleController {
     @Autowired
     ArticleService articleService ;
     @PostMapping("/addArticle")
-    public ArticleDTO addArticle(@RequestBody Article article ){
-        try {
-            return articleService.addArticle(article);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public ArticleDTO addArticle(@RequestBody ArticleDTO articleDTO  ) throws IOException {
+            return articleService.addArticle(articleDTO);
         //     return  clientRepository.save(client);
     }
+
+    @PutMapping("/updateArticle/{idArticle}")
+    public ArticleDTO updateArticle(@RequestBody ArticleDTO articleDTO , @PathVariable(value = "idArticle") String  idArticle ) throws IOException {
+        return articleService.updateArticle(articleDTO,idArticle);
+    }
+
+    @DeleteMapping("/deleteArticle/{idArticle}")
+    public  void deleteArticle(@PathVariable(value = "idArticle") String  idArticle ) throws IOException {
+        articleService.deleteArticle(idArticle);
+    }
+
 
 }

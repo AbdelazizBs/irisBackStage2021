@@ -1,5 +1,6 @@
 package com.iris.irisback.dto;
 
+import com.iris.irisback.model.Machine;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +11,10 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Personnel {
+public class PersonnelDTO {
 
     private String id ;
-    private String  idMachine ;
+    private String  idMach ;
     private  String cin ;
     private String firstName ;
     private String lastName ;
@@ -23,4 +24,5 @@ public class Personnel {
     private String country ;
     private  String genre ;
     private Date dateNaissance ;
+    private Machine machine ;
 }

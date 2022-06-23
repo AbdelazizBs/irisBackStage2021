@@ -20,6 +20,8 @@ public class EtapeProduction {
     private  String nomEtape ;
     private String typeEtape  ;
 
+    private  Machine machine ;
+
     public EtapeProduction() {
 
     }

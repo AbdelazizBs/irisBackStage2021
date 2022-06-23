@@ -17,7 +17,8 @@ import java.io.IOException;
 public class ClientService {
     @Autowired
     ClientRepository clientRepository ;
-    public ClientDTO  addClient(Client client)  throws IOException {
+    public ClientDTO  addClient(ClientDTO clientDTO)  throws IOException {
+        final Client client = ClientMapper.MAPPER.toClient(clientDTO);
         return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
     }
 }

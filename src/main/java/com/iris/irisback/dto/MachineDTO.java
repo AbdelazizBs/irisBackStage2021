@@ -2,11 +2,13 @@ package com.iris.irisback.dto;
 
 
 import com.iris.irisback.model.EtapeProduction;
+import com.iris.irisback.model.Personnel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +21,5 @@ public class MachineDTO {
     private EtapeProduction  etapeProduction ;
     private String nombreConducteur ;
     private Date dateMaintenance ;
+    private List<Personnel> personnel;
 }

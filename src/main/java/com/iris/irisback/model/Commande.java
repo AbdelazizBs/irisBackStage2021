@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -24,6 +25,5 @@ public class Commande {
     private  String numCmd ;
     private  String typeCmd ;
     private  Client client;
-    private Article article ;
-
+    private List<Article> article ;
 }

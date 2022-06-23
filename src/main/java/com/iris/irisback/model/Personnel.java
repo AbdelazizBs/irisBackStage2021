@@ -14,11 +14,11 @@ import java.util.Date;
 @ToString
 
 @AllArgsConstructor
-@Document(collection = "article")
+@Document(collection = "personnel")
 public class Personnel {
     @Id
     private String id ;
-    private String  idMachine ;
+    private String  idMach ;
     private  String cin ;
     private String firstName ;
     private String lastName ;
@@ -28,4 +28,5 @@ public class Personnel {
     private String country ;
     private  String genre ;
     private Date dateNaissance ;
+    private  Machine machine ;
 }

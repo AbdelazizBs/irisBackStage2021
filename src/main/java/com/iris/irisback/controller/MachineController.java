@@ -22,18 +22,18 @@ public class MachineController {
     @Autowired
     MachineService machineService ;
     @PostMapping("/addMachine")
-    public MachineDTO addMachine(@RequestBody Machine machine)  throws IOException {
-        return machineService.addMachine(machine);
+    public MachineDTO addMachine(@RequestBody MachineDTO machineDTO )  throws IOException {
+        return machineService.addMachine(machineDTO);
     }
 
-    @PutMapping("/updateMachine/{id}")
-    public  MachineDTO updateMachine(@RequestBody Machine machine ,@PathVariable String  id ){
-        return machineService.updateMachine(machine,id);
+    @PutMapping("/updateMachine/{idMachine}")
+    public  MachineDTO updateMachine(@RequestBody MachineDTO machineDTO ,@PathVariable(value = "idMachine") String  idMachine ) throws IOException {
+        return machineService.updateMachine(machineDTO,idMachine);
     }
 
-    @DeleteMapping("/deleteMachine/{id}")
-    public  void deleteMachine(@PathVariable String  id ){
-         machineService.deleteMachine(id);
+    @DeleteMapping("/deleteMachine/{idMachine}")
+    public  void deleteMachine(@PathVariable(value = "idMachine") String  idMachine ) throws IOException {
+         machineService.deleteMachine(idMachine);
     }
 
    }

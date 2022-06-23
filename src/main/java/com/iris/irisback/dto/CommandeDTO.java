@@ -18,8 +18,8 @@ public class CommandeDTO {
     private Date dateCmd ;
     private  String numCmd ;
     private  String typeCmd ;
-    private Client client;
-    private Article article ;
+    private String clientId;
+    private List<String> articlesId ;
 
     public CommandeDTO() {
 

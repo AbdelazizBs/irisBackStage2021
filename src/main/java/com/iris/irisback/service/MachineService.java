@@ -17,30 +17,31 @@ public class MachineService {
     MachineRepository machineRepository ;
 
 
-    public MachineDTO addMachine(Machine machine)  throws IOException {
+    public MachineDTO addMachine(MachineDTO machineDTO)  throws IOException {
+        final Machine machine = MachineMapper.MAPPER.toMachine(machineDTO);
         return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
     }
 
 
-    public  MachineDTO updateMachine(Machine machine, String id){
+    public  MachineDTO updateMachine(MachineDTO machineDTO, String idMachine)throws IOException{
         return  machineRepository
-                .findById(id)
+                .findById(idMachine)
                 .map(
 
-                        machine1 -> {
-                            machine1.setNomMachine(machine.getNomMachine());
-                            machine1.setEtapeProduction(machine.getEtapeProduction());
-                            machine1.setDateMaintenance(machine.getDateMaintenance());
-                            machine1.setLibelle(machine.getLibelle());
-                            machine1.setReference(machine.getReference());
-                            machine1.setNombreConducteur(machine.getNombreConducteur());
-                            return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine1));
+                        machine -> {
+                            machine.setNomMachine(machineDTO.getNomMachine());
+                            machine.setEtapeProduction(machineDTO.getEtapeProduction());
+                            machine.setDateMaintenance(machineDTO.getDateMaintenance());
+                            machine.setLibelle(machineDTO.getLibelle());
+                            machine.setReference(machineDTO.getReference());
+                            machine.setNombreConducteur(machineDTO.getNombreConducteur());
+                            return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
                         })
-                .orElseThrow(() -> new NotFoundException(machine.getId() + " not found"));
+                .orElseThrow(() -> new NotFoundException(machineDTO.getId() + " not found"));
 
     }
 
-    public void deleteMachine(String  id){
+    public void deleteMachine(String  id) throws IOException{
        machineRepository.deleteById(id);
     }
 

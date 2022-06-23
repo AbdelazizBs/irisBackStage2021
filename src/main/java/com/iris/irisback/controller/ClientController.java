@@ -19,12 +19,8 @@ public class ClientController {
     ClientService clientService ;
 
 @PostMapping("/addClient")
-    public ClientDTO addClient(@RequestBody  Client client){
-    try {
-        return clientService.addClient(client);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
+    public ClientDTO addClient(@RequestBody  ClientDTO clientDTO) throws IOException {
+        return clientService.addClient(clientDTO);
     //     return  clientRepository.save(client);
     }
 }
