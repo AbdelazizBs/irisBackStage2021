@@ -52,7 +52,6 @@ public class CommandeService {
     }
 
 
-/*
 
     public CommandeDTO updateCommande(CommandeDTO commandeDTO, String commandeId){
     return commandeRepository
@@ -62,7 +61,8 @@ public class CommandeService {
               commande.setTypeCmd(commandeDTO.getTypeCmd());
               commande.setNumCmd(commandeDTO.getNumCmd());
               commande.setDateCmd(commandeDTO.getDateCmd());
-              //  commande.setClient(clientRepository.findClientById(commandeDTO.getClientId()));
+              commande.setArticles(commandeDTO.getArticles());
+                commande.setClient(clientRepository.findClientById(commandeDTO.getClientId()));
              /* commande.setArticle(
                   new ArrayList<Article>(
                       Collections.singleton(
@@ -75,13 +75,13 @@ public class CommandeService {
               // commande.setArticle(Collections.singletonList(articleRepository.findArticleById(String.valueOf(commandeDTO.getArticlesId()))));
               //
               // commande.setArticle(Collections.singletonList(articleRepository.findArticleById(String.valueOf(commandeDTO.getArticlesId()))));
-           /*    return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
+            return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
            })
         .orElseThrow(() -> new NotFoundException("Commande Id  " + commandeId + " not found"));
     }
 
 
-*/
+
 
 
 

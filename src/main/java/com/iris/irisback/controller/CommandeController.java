@@ -47,12 +47,12 @@ public class CommandeController {
 
 
 
-/*
+
     @PutMapping("/updateCommande/{commandeId}")
     public CommandeDTO updateCommande(@RequestBody CommandeDTO commandeDTO ,@PathVariable("commandeId") String commandeId ){
         return commandeService.updateCommande(commandeDTO,commandeId);
     }
-*/
+
 
 
 

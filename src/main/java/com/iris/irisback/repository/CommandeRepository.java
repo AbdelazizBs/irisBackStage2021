@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface CommandeRepository extends MongoRepository<Commande,String> {
 
-    @Query(value="{ 'id' : ?0 }")
     List<Commande> findCommandeByClientId(String id);
 
 

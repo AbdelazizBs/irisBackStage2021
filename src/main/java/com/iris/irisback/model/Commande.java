@@ -25,5 +25,5 @@ public class Commande {
     private  String numCmd ;
     private  String typeCmd ;
     private  Client client;
-    private List<Article> article ;
+    private List<Article> articles ;
 }
