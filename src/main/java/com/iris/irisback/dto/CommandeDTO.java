@@ -19,8 +19,9 @@ public class CommandeDTO {
     private  String numCmd ;
     private  String typeCmd ;
     private String clientId;
-    private  List<Article> articles ;
-   // private List<String> articlesId ;
+
+   // private  List<Article> articles ;
+    private List<String> articlesId ;
 
     public CommandeDTO() {
 

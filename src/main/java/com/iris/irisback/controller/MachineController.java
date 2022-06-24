@@ -1,6 +1,7 @@
 package com.iris.irisback.controller;
 
 
+import com.iris.irisback.dto.ArticleDTO;
 import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.dto.MachineDTO;
 import com.iris.irisback.mapper.ClientMapper;
@@ -35,6 +36,11 @@ public class MachineController {
     public  void deleteMachine(@PathVariable(value = "idMachine") String  idMachine ) throws IOException {
          machineService.deleteMachine(idMachine);
     }
+
+
+
+
+
 
    }
 

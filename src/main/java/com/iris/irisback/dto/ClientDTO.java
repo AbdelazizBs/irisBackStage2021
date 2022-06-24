@@ -26,6 +26,7 @@ public class ClientDTO  {
     private String email ;
     private String login ;
     private String password ;
+    private  boolean active ;
   private List<Commande> commandes ;
 
 }

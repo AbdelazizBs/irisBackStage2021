@@ -21,5 +21,5 @@ public class MachineDTO {
     private EtapeProduction  etapeProduction ;
     private String nombreConducteur ;
     private Date dateMaintenance ;
-    private List<Personnel> personnel;
+   // private List<Personnel> personnel;
 }

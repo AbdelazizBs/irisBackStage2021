@@ -35,6 +35,7 @@ public class ArticleService {
                         article -> {
                             article.setCodeArticle(articleDTO.getCodeArticle());
                             article.setDesignation(articleDTO.getDesignation());
+                            article.setEtapeProductions(articleDTO.getEtapeProductions());
                             return ArticleMapper.MAPPER.toArticleDTO(articleRepository.save(article));
                         })
                 .orElseThrow(() -> new NotFoundException(articleDTO.getId() + " not found"));
@@ -44,4 +45,9 @@ public class ArticleService {
     public void deleteArticle(String  idArticle) throws IOException{
         articleRepository.deleteById(idArticle);
     }
+
+
+
+
+
 }

@@ -21,4 +21,10 @@ public class PersonnelController {
         //     return  clientRepository.save(client);
     }
 
+    @PutMapping("/updatePersonnel/{idPersonnel}")
+    public PersonnelDTO updatePersonnel(@RequestBody PersonnelDTO personnelDTO , @PathVariable(value = "idPersonnel") String  idPersonnel ) throws IOException {
+        return personnelService.updatePersonnel(personnelDTO,idPersonnel);
+    }
+
+
 }

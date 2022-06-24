@@ -7,19 +7,18 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
-
 @AllArgsConstructor
 @Document(collection = "article")
 public class Article {
-    @Id
-    private String id ;
-    private  String codeArticle ;
-    private  String designation ;
+  @Id private String id;
+  private String codeArticle;
+  private String designation;
+  private List<EtapeProduction> etapeProductions;
 
-    public Article() {
-
-    }
+  public Article() {}
 }
