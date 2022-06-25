@@ -1,17 +1,9 @@
 package com.iris.irisback.controller;
 
-
-import com.iris.irisback.dto.ArticleDTO;
-import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.dto.MachineDTO;
-import com.iris.irisback.mapper.ClientMapper;
-import com.iris.irisback.mapper.MachineMapper;
-import com.iris.irisback.model.Client;
-import com.iris.irisback.model.Machine;
-import com.iris.irisback.repository.MachineRepository;
 import com.iris.irisback.service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -20,27 +12,24 @@ import java.io.IOException;
 @RequestMapping("/machine")
 @CrossOrigin(origins = "*")
 public class MachineController {
-    @Autowired
-    MachineService machineService ;
-    @PostMapping("/addMachine")
-    public MachineDTO addMachine(@RequestBody MachineDTO machineDTO )  throws IOException {
-        return machineService.addMachine(machineDTO);
-    }
+  @Autowired MachineService machineService;
 
-    @PutMapping("/updateMachine/{idMachine}")
-    public  MachineDTO updateMachine(@RequestBody MachineDTO machineDTO ,@PathVariable(value = "idMachine") String  idMachine ) throws IOException {
-        return machineService.updateMachine(machineDTO,idMachine);
-    }
+  @PostMapping("/addMachine")
+  public MachineDTO addMachine(@RequestBody final MachineDTO machineDTO) throws IOException {
+    return machineService.addMachine(machineDTO);
+  }
 
-    @DeleteMapping("/deleteMachine/{idMachine}")
-    public  void deleteMachine(@PathVariable(value = "idMachine") String  idMachine ) throws IOException {
-         machineService.deleteMachine(idMachine);
-    }
+  @PutMapping("/updateMachine/{idMachine}")
+  public MachineDTO updateMachine(
+          @RequestBody final MachineDTO machineDTO, @PathVariable(value = "idMachine") final String idMachine)
+      throws IOException {
+    return machineService.updateMachine(machineDTO, idMachine);
+  }
 
-
-
-
-
-
-   }
-
+  @DeleteMapping("/deleteMachine/{idMachine}")
+  public ResponseEntity<Void> deleteMachine(@PathVariable(value = "idMachine") final String idMachine)
+      throws IOException {
+    machineService.deleteMachine(idMachine);
+    return ResponseEntity.noContent().build();
+  }
+}
