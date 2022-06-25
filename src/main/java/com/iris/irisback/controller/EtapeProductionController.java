@@ -14,10 +14,10 @@ public class EtapeProductionController {
 
   @Autowired EtapeProductionService productionService;
 
-  @PostMapping("/addEtapeProduction")
+  @PostMapping("/processEtapeProduction")
   public EtapeProductionDTO processEtapeProduction(
       @RequestBody final EtapeProductionDTO etapeProductionDTO) throws IOException {
-    return productionService.addEtapeProduction(etapeProductionDTO);
+    return productionService.processEtapeProduction(etapeProductionDTO);
     //     return  clientRepository.save(client);
   }
 

@@ -7,8 +7,6 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Getter
 @Setter
 @ToString
@@ -18,7 +16,7 @@ public class Article {
   @Id private String id;
   private String codeArticle;
   private String designation;
-  private List<EtapeProduction> etapeProductions;
+  // private List<EtapeProduction> etapeProductions;
 
   public Article() {}
 }

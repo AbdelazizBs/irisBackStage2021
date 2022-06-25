@@ -3,19 +3,29 @@ package com.iris.irisback.service;
 import com.iris.irisback.dto.PersonnelDTO;
 import com.iris.irisback.exception.NotFoundException;
 import com.iris.irisback.mapper.PersonnelMapper;
+import com.iris.irisback.model.Machine;
 import com.iris.irisback.model.Personnel;
+import com.iris.irisback.repository.MachineRepository;
 import com.iris.irisback.repository.PersonnelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
 public class PersonnelService {
-  @Autowired PersonnelRepository personnelRepository;
+  final PersonnelRepository personnelRepository;
+  final MachineRepository machineRepository;
+
+  public PersonnelService(
+      final PersonnelRepository personnelRepository, final MachineRepository machineRepository) {
+    this.personnelRepository = personnelRepository;
+    this.machineRepository = machineRepository;
+  }
 
   public PersonnelDTO addPersonnel(final PersonnelDTO personnelDTO) throws IOException {
     final Personnel personnel = PersonnelMapper.MAPPER.toPersonnel(personnelDTO);
+    final Machine machine = machineRepository.findMachineById(personnelDTO.getMachineId());
+    personnel.setMachine(machine);
     return PersonnelMapper.MAPPER.toPersonnelDTO(personnelRepository.save(personnel));
   }
 
@@ -38,8 +48,9 @@ public class PersonnelService {
               personnel.setGenre(personnelDTO.getGenre());
               personnel.setCin(personnelDTO.getCin());
               personnel.setPhone(personnelDTO.getPhone());
-              personnel.setIdMach(personnelDTO.getIdMach());
-              personnel.setMachine(personnelDTO.getMachine());
+              final Machine machine =
+                  machineRepository.findMachineById(personnelDTO.getMachineId());
+              personnel.setMachine(machine);
               return PersonnelMapper.MAPPER.toPersonnelDTO(personnelRepository.save(personnel));
             })
         .orElseThrow(() -> new NotFoundException(personnelDTO.getId() + " not found"));

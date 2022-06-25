@@ -5,14 +5,17 @@ import com.iris.irisback.exception.NotFoundException;
 import com.iris.irisback.mapper.ClientMapper;
 import com.iris.irisback.model.Client;
 import com.iris.irisback.repository.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
 public class ClientService {
-  @Autowired ClientRepository clientRepository;
+  final ClientRepository clientRepository;
+
+  public ClientService(final ClientRepository clientRepository) {
+    this.clientRepository = clientRepository;
+  }
 
   public ClientDTO addClient(final ClientDTO clientDTO) throws IOException {
     final Client client = ClientMapper.MAPPER.toClient(clientDTO);
@@ -20,7 +23,8 @@ public class ClientService {
     return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
   }
 
-  public ClientDTO updateClient(final ClientDTO clientDTO, final String idClient) throws IOException {
+  public ClientDTO updateClient(final ClientDTO clientDTO, final String idClient)
+      throws IOException {
     return clientRepository
         .findById(idClient)
         .map(
