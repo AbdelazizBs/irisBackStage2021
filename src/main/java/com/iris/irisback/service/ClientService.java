@@ -20,6 +20,7 @@ public class ClientService {
   public ClientDTO addClient(final ClientDTO clientDTO) throws IOException {
     final Client client = ClientMapper.MAPPER.toClient(clientDTO);
     client.setActive(true);
+    // client.setPassword(bCryptPasswordEncoder.encode(clientDTO.getPassword()));
     return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
   }
 

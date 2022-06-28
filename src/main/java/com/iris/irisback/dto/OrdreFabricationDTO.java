@@ -15,7 +15,7 @@ public class OrdreFabricationDTO {
   private Date debutHeure;
   private Date finHeure;
   private String commentaire;
-  private String quentitePremierChoix;
-  private String quentiteNonConforme;
+  private String qtePremierChoix;
+  private String qteNonConforme;
   // private String articleId;
 }
