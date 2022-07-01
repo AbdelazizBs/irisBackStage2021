@@ -1,5 +1,6 @@
 package com.iris.irisback.controller;
 
+import com.iris.irisback.dto.CommandeDTO;
 import com.iris.irisback.dto.PersonnelDTO;
 import com.iris.irisback.service.PersonnelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class PersonnelController {
       @PathVariable(value = "idPersonnel") final String idPersonnel) throws IOException {
     personnelService.deletePersonnel(idPersonnel);
     return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping("/acceptCmd")
+  public CommandeDTO acceptCmd(@RequestBody final CommandeDTO commandeDTO) throws IOException {
+    return personnelService.acceptCmd(commandeDTO);
   }
 }

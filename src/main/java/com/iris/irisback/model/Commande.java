@@ -22,4 +22,5 @@ public class Commande {
   private String typeCmd;
   private Client client;
   private List<Article> articles;
+  private Boolean accepted = false;
 }

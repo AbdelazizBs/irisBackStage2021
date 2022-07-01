@@ -17,7 +17,6 @@ public class ClientDTO {
   private String phone;
   private String country;
   private String email;
-  private String login;
   private String password;
   private Boolean active;
   // private List<String> commandesId;

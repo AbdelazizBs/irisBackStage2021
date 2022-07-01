@@ -6,6 +6,7 @@ import com.iris.irisback.mapper.ClientMapper;
 import com.iris.irisback.model.Client;
 import com.iris.irisback.repository.ClientRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.io.IOException;
 
@@ -17,8 +18,21 @@ public class ClientService {
     this.clientRepository = clientRepository;
   }
 
-  public ClientDTO addClient(final ClientDTO clientDTO) throws IOException {
+  public ClientDTO login(final String email, final String password) {
+    return ClientMapper.MAPPER.toClientDTO(
+        clientRepository.findClientByEmailAndPassword(email, password));
+  }
+
+  public ClientDTO addClient(final ClientDTO clientDTO, final BindingResult bindingResult)
+      throws IOException {
+    final Client clientExist = clientRepository.findClientByEmail(clientDTO.getEmail());
+    if (clientExist != null) {
+      bindingResult.rejectValue(
+          "email", "error.user", "There is already a user registered with the email provided");
+    }
+
     final Client client = ClientMapper.MAPPER.toClient(clientDTO);
+
     client.setActive(true);
     // client.setPassword(bCryptPasswordEncoder.encode(clientDTO.getPassword()));
     return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
@@ -36,7 +50,6 @@ public class ClientService {
               client.setEmail(clientDTO.getEmail());
               client.setFirstName(clientDTO.getFirstName());
               client.setLastName(clientDTO.getLastName());
-              client.setLogin(clientDTO.getLogin());
               client.setPassword(clientDTO.getPassword());
               client.setPhone(clientDTO.getPhone());
               return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));

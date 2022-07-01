@@ -1,10 +1,14 @@
 package com.iris.irisback.service;
 
+import com.iris.irisback.dto.CommandeDTO;
 import com.iris.irisback.dto.PersonnelDTO;
 import com.iris.irisback.exception.NotFoundException;
+import com.iris.irisback.mapper.CommandeMapper;
 import com.iris.irisback.mapper.PersonnelMapper;
+import com.iris.irisback.model.Commande;
 import com.iris.irisback.model.Machine;
 import com.iris.irisback.model.Personnel;
+import com.iris.irisback.repository.CommandeRepository;
 import com.iris.irisback.repository.MachineRepository;
 import com.iris.irisback.repository.PersonnelRepository;
 import org.springframework.stereotype.Service;
@@ -16,10 +20,15 @@ public class PersonnelService {
   final PersonnelRepository personnelRepository;
   final MachineRepository machineRepository;
 
+  final CommandeRepository commandeRepository;
+
   public PersonnelService(
-      final PersonnelRepository personnelRepository, final MachineRepository machineRepository) {
+      final PersonnelRepository personnelRepository,
+      final MachineRepository machineRepository,
+      final CommandeRepository commandeRepository) {
     this.personnelRepository = personnelRepository;
     this.machineRepository = machineRepository;
+    this.commandeRepository = commandeRepository;
   }
 
   public PersonnelDTO addPersonnel(final PersonnelDTO personnelDTO) throws IOException {
@@ -54,5 +63,13 @@ public class PersonnelService {
               return PersonnelMapper.MAPPER.toPersonnelDTO(personnelRepository.save(personnel));
             })
         .orElseThrow(() -> new NotFoundException(personnelDTO.getId() + " not found"));
+  }
+
+  public CommandeDTO acceptCmd(final CommandeDTO commandeDTO) throws IOException {
+    final Commande commande =
+        commandeRepository.findCommandeByClientIdAndNumCmd(
+            commandeDTO.getClientId(), commandeDTO.getNumCmd());
+    commande.setAccepted(true);
+    return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
   }
 }
