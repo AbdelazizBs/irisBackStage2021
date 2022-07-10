@@ -21,6 +21,11 @@ public class CommandeController {
     return commandeService.addCommande(commandeDTO);
   }
 
+  @GetMapping("/commandes")
+  List<CommandeDTO> Commandes() throws IOException {
+    return commandeService.Commandes();
+  }
+
   @GetMapping("/{clientId}/myCommandes")
   List<CommandeDTO> myCommandes(@PathVariable(value = "clientId") final String clientId)
       throws IOException {
@@ -28,15 +33,16 @@ public class CommandeController {
   }
 
   @DeleteMapping("/deleteCommande/{idCommande}")
-  public ResponseEntity<Void> deleteCommande(@PathVariable(value = "idCommande") final String idCommande)
-      throws IOException {
+  public ResponseEntity<Void> deleteCommande(
+      @PathVariable(value = "idCommande") final String idCommande) throws IOException {
     commandeService.deleteCommande(idCommande);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping("/updateCommande/{commandeId}")
   public CommandeDTO updateCommande(
-          @RequestBody final CommandeDTO commandeDTO, @PathVariable("commandeId") final String commandeId) {
+      @RequestBody final CommandeDTO commandeDTO,
+      @PathVariable("commandeId") final String commandeId) {
     return commandeService.updateCommande(commandeDTO, commandeId);
   }
 }

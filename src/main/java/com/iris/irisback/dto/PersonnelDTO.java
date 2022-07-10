@@ -20,6 +20,10 @@ public class PersonnelDTO {
   private String phone;
   private String country;
   private String genre;
+
   private Date dateNaissance;
-  private String machineId;
+
+  private String nomMachine;
+  private String login;
+  private String password;
 }

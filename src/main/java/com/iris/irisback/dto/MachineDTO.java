@@ -13,9 +13,13 @@ public class MachineDTO {
   private String id;
   private String nomMachine;
   private String reference;
-  private String libelle;
   private String nomEtapeProduction;
   private String nombreConducteur;
   private Date dateMaintenance;
+  private Date dateCreation;
+  private String etat;
+
+  public MachineDTO() {}
+
   // private List<Personnel> personnel;
 }

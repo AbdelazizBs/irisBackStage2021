@@ -4,6 +4,7 @@ import com.iris.irisback.dto.CommandeDTO;
 import com.iris.irisback.exception.NotFoundException;
 import com.iris.irisback.mapper.CommandeMapper;
 import com.iris.irisback.model.Article;
+import com.iris.irisback.model.Client;
 import com.iris.irisback.model.Commande;
 import com.iris.irisback.repository.ArticleRepository;
 import com.iris.irisback.repository.ClientRepository;
@@ -37,12 +38,21 @@ public class CommandeService {
     final List<Article> articles = new ArrayList<>();
     commandeDTO.getArticlesId().forEach(id -> articles.add(articleRepository.findArticleById(id)));
     commande1.setArticles(articles);
+    final Client client = clientRepository.findClientByNom(commandeDTO.getNomClient());
+    commande1.setClient(client);
     return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande1));
   }
 
   public List<CommandeDTO> myCommandes(final String clientId) throws IOException {
     final List<Commande> commandeByClientId = commandeRepository.findCommandeByClientId(clientId);
     return commandeByClientId.stream()
+        .map(commande -> CommandeMapper.MAPPER.toCommandeDTO(commande))
+        .collect(Collectors.toList());
+  }
+
+  public List<CommandeDTO> Commandes() throws IOException {
+    final List<Commande> commandes = commandeRepository.findAll();
+    return commandes.stream()
         .map(commande -> CommandeMapper.MAPPER.toCommandeDTO(commande))
         .collect(Collectors.toList());
   }

@@ -26,4 +26,6 @@ public class Personnel {
   private String genre;
   private Date dateNaissance;
   private Machine machine;
+  private String login;
+  private String password;
 }

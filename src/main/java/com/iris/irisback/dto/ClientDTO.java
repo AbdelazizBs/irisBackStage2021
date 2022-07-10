@@ -10,8 +10,7 @@ import lombok.Setter;
 public class ClientDTO {
 
   private String id;
-  private String firstName;
-  private String lastName;
+  private String nom;
   private String company;
   private String address;
   private String phone;

@@ -11,5 +11,9 @@ public interface CommandeRepository extends MongoRepository<Commande, String> {
 
   List<Commande> findCommandeByClientId(String id);
 
+  Commande findCommandeById(String id);
+
   Commande findCommandeByClientIdAndNumCmd(String clientId, String numCmd);
+
+  Commande findCommandeByClientNomAndNumCmd(String nomClient, String numCmd);
 }

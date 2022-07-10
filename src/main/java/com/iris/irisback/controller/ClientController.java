@@ -2,7 +2,6 @@ package com.iris.irisback.controller;
 
 import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,11 @@ import java.io.IOException;
 @RequestMapping("/client")
 @CrossOrigin(origins = "*")
 public class ClientController {
-  @Autowired ClientService clientService;
+  final ClientService clientService;
+
+  public ClientController(final ClientService clientService) {
+    this.clientService = clientService;
+  }
 
   @PostMapping("/addClient")
   public ClientDTO addClient(
@@ -34,8 +37,21 @@ public class ClientController {
   @PostMapping("/login")
   public ClientDTO login(
       @Valid @RequestParam(value = "email") final String email,
-      @RequestParam(value = "password") final String password) {
+      @RequestParam(value = "password") final String password)
+      throws IOException {
     return clientService.login(email, password);
+  }
+
+  @GetMapping("/getClientById/{idClient}")
+  public ClientDTO getClientbyid(@PathVariable(value = "idClient") final String idClient)
+      throws IOException {
+    return clientService.getClientById(idClient);
+  }
+
+  @GetMapping("/getClientByEmail")
+  public ClientDTO getClientByEmail(@Valid @RequestParam(value = "email") final String email)
+      throws IOException {
+    return clientService.getClientByEmail(email);
   }
 
   @PutMapping("/desactivateClient/{idClient}")

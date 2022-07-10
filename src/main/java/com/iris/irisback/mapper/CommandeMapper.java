@@ -2,7 +2,6 @@ package com.iris.irisback.mapper;
 
 import com.iris.irisback.dto.CommandeDTO;
 import com.iris.irisback.model.Article;
-import com.iris.irisback.model.Client;
 import com.iris.irisback.model.Commande;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -20,7 +19,7 @@ public abstract class CommandeMapper {
   public static CommandeMapper MAPPER = Mappers.getMapper(CommandeMapper.class);
 
   @Mapping(target = "articlesId", ignore = true)
-  @Mapping(target = "clientId", ignore = true)
+  @Mapping(target = "nomClient", ignore = true)
   public abstract CommandeDTO toCommandeDTO(Commande commande);
 
   @Mapping(target = "articles", ignore = true)
@@ -31,13 +30,13 @@ public abstract class CommandeMapper {
   void updateCommandeDTO(final Commande commande, @MappingTarget final CommandeDTO commandeDTO) {
     final List<String> list = commande.getArticles().stream().map(Article::getId).collect(toList());
     commandeDTO.setArticlesId(list);
-    commandeDTO.setClientId(commande.getClient().getId());
+    commandeDTO.setNomClient(commande.getClient().getNom());
   }
 
   @AfterMapping
   void updateCommande(final CommandeDTO commandeDTO, @MappingTarget final Commande commande) {
-    final Client client = new Client();
-    client.setId(commandeDTO.getClientId());
-    commande.setClient(client);
+    //        final Client client = new Client();
+    //        client.setNom(commandeDTO.getNomClient());
+    //        commande.setClient(client);
   }
 }

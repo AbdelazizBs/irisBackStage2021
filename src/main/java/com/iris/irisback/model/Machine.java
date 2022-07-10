@@ -18,13 +18,13 @@ public class Machine {
   @Id private String id;
   private String nomMachine;
   private String reference;
-  private String libelle;
   private EtapeProduction etapeProduction;
   private String nombreConducteur;
   private Date dateMaintenance;
+  private Date dateCreation;
+  private String etat;
 
   public Machine() {}
-
   // private List<Personnel> personnel;
 
 }

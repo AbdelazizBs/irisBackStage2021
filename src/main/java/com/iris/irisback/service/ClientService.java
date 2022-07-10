@@ -18,9 +18,17 @@ public class ClientService {
     this.clientRepository = clientRepository;
   }
 
-  public ClientDTO login(final String email, final String password) {
+  public ClientDTO login(final String email, final String password) throws IOException {
     return ClientMapper.MAPPER.toClientDTO(
         clientRepository.findClientByEmailAndPassword(email, password));
+  }
+
+  public ClientDTO getClientById(final String idClient) throws IOException {
+    return ClientMapper.MAPPER.toClientDTO(clientRepository.findClientById(idClient));
+  }
+
+  public ClientDTO getClientByEmail(final String email) throws IOException {
+    return ClientMapper.MAPPER.toClientDTO(clientRepository.findClientByEmail(email));
   }
 
   public ClientDTO addClient(final ClientDTO clientDTO, final BindingResult bindingResult)
@@ -30,10 +38,8 @@ public class ClientService {
       bindingResult.rejectValue(
           "email", "error.user", "There is already a user registered with the email provided");
     }
-
     final Client client = ClientMapper.MAPPER.toClient(clientDTO);
-
-    client.setActive(true);
+    client.setActive(false);
     // client.setPassword(bCryptPasswordEncoder.encode(clientDTO.getPassword()));
     return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
   }
@@ -48,8 +54,7 @@ public class ClientService {
               client.setCompany(clientDTO.getCompany());
               client.setCountry(clientDTO.getCountry());
               client.setEmail(clientDTO.getEmail());
-              client.setFirstName(clientDTO.getFirstName());
-              client.setLastName(clientDTO.getLastName());
+              client.setNom(clientDTO.getNom());
               client.setPassword(clientDTO.getPassword());
               client.setPhone(clientDTO.getPhone());
               return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));

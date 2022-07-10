@@ -14,6 +14,7 @@ import com.iris.irisback.repository.PersonnelRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Service
 public class PersonnelService {
@@ -33,43 +34,73 @@ public class PersonnelService {
 
   public PersonnelDTO addPersonnel(final PersonnelDTO personnelDTO) throws IOException {
     final Personnel personnel = PersonnelMapper.MAPPER.toPersonnel(personnelDTO);
-    final Machine machine = machineRepository.findMachineById(personnelDTO.getMachineId());
+    final Machine machine = machineRepository.findMachineByNomMachine(personnelDTO.getNomMachine());
     personnel.setMachine(machine);
     return PersonnelMapper.MAPPER.toPersonnelDTO(personnelRepository.save(personnel));
+  }
+
+  public PersonnelDTO login(final String login, final String password) throws IOException {
+    return PersonnelMapper.MAPPER.toPersonnelDTO(
+        personnelRepository.findPersonnelByLoginAndPassword(login, password));
   }
 
   public void deletePersonnel(final String idPersonnel) throws IOException {
     personnelRepository.deleteById(idPersonnel);
   }
 
-  public PersonnelDTO updatePersonnel(final PersonnelDTO personnelDTO, final String idPersonnel)
+  public PersonnelDTO getPersonnelById(final String idPersonnel) throws IOException {
+    return PersonnelMapper.MAPPER.toPersonnelDTO(
+        personnelRepository.findPersonnelById(idPersonnel));
+  }
+
+  public PersonnelDTO getPersonnelByLogin(final String login) throws IOException {
+    return PersonnelMapper.MAPPER.toPersonnelDTO(personnelRepository.findPersonnelByLogin(login));
+  }
+
+  public PersonnelDTO updatePersonnel(
+      final String cin,
+      final String firstName,
+      final String lastName,
+      final String company,
+      final String address,
+      final String phone,
+      final String country,
+      final String genre,
+      final Date dateNaissance,
+      final String nomMachine,
+      final String login,
+      final String password,
+      final String idPersonnel)
       throws IOException {
     return personnelRepository
         .findById(idPersonnel)
         .map(
             personnel -> {
-              personnel.setAddress(personnelDTO.getAddress());
-              personnel.setCompany(personnelDTO.getCompany());
-              personnel.setCountry(personnelDTO.getCountry());
-              personnel.setFirstName(personnelDTO.getFirstName());
-              personnel.setLastName(personnelDTO.getLastName());
-              personnel.setDateNaissance(personnelDTO.getDateNaissance());
-              personnel.setGenre(personnelDTO.getGenre());
-              personnel.setCin(personnelDTO.getCin());
-              personnel.setPhone(personnelDTO.getPhone());
-              final Machine machine =
-                  machineRepository.findMachineById(personnelDTO.getMachineId());
+              personnel.setAddress(address);
+              personnel.setCompany(company);
+              personnel.setCountry(country);
+              personnel.setFirstName(firstName);
+              personnel.setLastName(lastName);
+              personnel.setDateNaissance(dateNaissance);
+              personnel.setGenre(genre);
+              personnel.setCin(cin);
+              personnel.setLogin(login);
+              personnel.setPassword(password);
+              personnel.setPhone(phone);
+              final Machine machine = machineRepository.findMachineByNomMachine(nomMachine);
               personnel.setMachine(machine);
               return PersonnelMapper.MAPPER.toPersonnelDTO(personnelRepository.save(personnel));
             })
-        .orElseThrow(() -> new NotFoundException(personnelDTO.getId() + " not found"));
+        .orElseThrow(() -> new NotFoundException(idPersonnel + " not found"));
   }
 
-  public CommandeDTO acceptCmd(final CommandeDTO commandeDTO) throws IOException {
-    final Commande commande =
-        commandeRepository.findCommandeByClientIdAndNumCmd(
-            commandeDTO.getClientId(), commandeDTO.getNumCmd());
-    commande.setAccepted(true);
+  public CommandeDTO inverse(final String idCommande) throws IOException {
+    final Commande commande = commandeRepository.findCommandeById(idCommande);
+    if (commande.getAccepted() == false) {
+      commande.setAccepted(true);
+    } else {
+      commande.setAccepted(false);
+    }
     return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
   }
 }

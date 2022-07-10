@@ -1,0 +1,18 @@
+nomMachine,reference,nomEtapeProduction,nombreConducteur,dateMaintenance,dateCreation,etat
+massicot,M1,decoupe,2,22/07/2019,15/05/2017,En Maintenance
+74,M2,impression,2,30/06/2017,15/05/2017,En repos
+52,M3,impression,3,15/08/2019,15/05/2017,En marche
+46,M4,impression,2,28/04/2019,15/05/2017,En marche
+serigraphie,M5,impression,2,30/06/2017,15/05/2017,En repos
+numerique,M6,impression,2,30/06/2017,15/05/2017,En Maintenance
+platine1,M7,decoupe,4,15/06/2017,15/05/2017,En Maintenance
+platine2,M8,decoupe,2,24/05/2018,15/05/2017,En repos
+jurim,M9,decoupe,2,30/06/2017,15/05/2017,En repos
+cylindrique,M10,decoupe,3,30/06/2017,15/05/2017,En marche
+perceuse1,M11,trou,2,17/06/2017,15/05/2017,En marche
+perceuse2,M12,trou,2,30/06/2017,15/05/2017,En repos
+perceuse3,M13,trou,3,30/06/2017,15/05/2017,En marche
+oeillet1,M14,oeillet,4,15/06/2017,15/05/2017,En Maintenance
+oeillet2,M15,oeillet,2,17/06/2017,15/05/2017,En repos
+contre collage,M16,contre collage,4,15/06/2017,15/05/2017,En Maintenance
+plieuse colleuse,M17,collage,2,17/06/2017,15/05/2017,En marche

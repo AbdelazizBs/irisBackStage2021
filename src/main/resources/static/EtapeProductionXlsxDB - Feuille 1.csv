@@ -1,0 +1,16 @@
+nomEtape,typeEtape
+impression,Machine
+découpe,Machine
+pellicullage,Machine
+contre collage,Machine
+collage,Machine
+repiquage,Machine
+trou,Machine
+oeillet,Machine
+dorure,Machine
+finition cordon,Manuelle
+finition controle,Manuelle
+emballage,Machine
+expédition,Manuelle
+livraison,Manuelle
+sous-traitance,service extérieur

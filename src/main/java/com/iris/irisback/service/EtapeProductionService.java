@@ -8,6 +8,8 @@ import com.iris.irisback.repository.EtapeProductionRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EtapeProductionService {
@@ -19,6 +21,12 @@ public class EtapeProductionService {
       final ArticleRepository articleRepository) {
     this.etapeProductionRepository = etapeProductionRepository;
     this.articleRepository = articleRepository;
+  }
+
+  public List<String> getNomEtapes() throws IOException {
+    return etapeProductionRepository.findAll().stream()
+        .map(EtapeProduction::getNomEtape)
+        .collect(Collectors.toList());
   }
 
   public EtapeProductionDTO processEtapeProduction(final EtapeProductionDTO etapeProductionDTO)

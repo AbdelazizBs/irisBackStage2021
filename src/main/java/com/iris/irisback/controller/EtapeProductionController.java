@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/etapeProduction")
@@ -13,6 +14,11 @@ import java.io.IOException;
 public class EtapeProductionController {
 
   @Autowired EtapeProductionService productionService;
+
+  @GetMapping("/getNomEtapes")
+  public List<String> getNomEtapes() throws IOException {
+    return productionService.getNomEtapes();
+  }
 
   @PostMapping("/processEtapeProduction")
   public EtapeProductionDTO processEtapeProduction(

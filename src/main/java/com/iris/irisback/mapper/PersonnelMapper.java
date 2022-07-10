@@ -13,7 +13,7 @@ public abstract class PersonnelMapper {
   public static PersonnelMapper MAPPER = Mappers.getMapper(PersonnelMapper.class);
 
   //  @Mapping(target = "etapeProduction", ignore = true)
-  @Mapping(target = "machineId", ignore = true)
+  @Mapping(target = "nomMachine", ignore = true)
   public abstract PersonnelDTO toPersonnelDTO(Personnel personnel);
 
   @Mapping(target = "machine", ignore = true)
@@ -22,7 +22,7 @@ public abstract class PersonnelMapper {
   @AfterMapping
   void updatePersonnelDTO(
       final Personnel personnel, @MappingTarget final PersonnelDTO personnelDTO) {
-    personnelDTO.setMachineId(personnel.getMachine().getId());
+    personnelDTO.setNomMachine(personnel.getMachine().getNomMachine());
   }
 
   @AfterMapping
