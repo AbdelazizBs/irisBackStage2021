@@ -37,9 +37,9 @@ public class MachineController {
   }
 
   @GetMapping("/getMachineById/{idMachine}")
-  public MachineDTO getPersonnelById(@PathVariable(value = "idMachine") final String idMachine)
+  public MachineDTO getMachineById(@PathVariable(value = "idMachine") final String idMachine)
       throws IOException {
-    return machineService.getPersonnelById(idMachine);
+    return machineService.getMachineById(idMachine);
   }
 
   @GetMapping("/getNomMachine")

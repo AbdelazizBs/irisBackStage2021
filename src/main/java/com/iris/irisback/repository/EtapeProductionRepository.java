@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EtapeProductionRepository extends MongoRepository<EtapeProduction, String> {
   EtapeProduction findEtapeProductionByNomEtape(String s);
+
+  EtapeProduction findEtapeProductionById(String s);
 }

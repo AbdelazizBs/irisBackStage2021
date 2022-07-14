@@ -22,9 +22,30 @@ public class EtapeProductionController {
 
   @PostMapping("/processEtapeProduction")
   public EtapeProductionDTO processEtapeProduction(
-      @RequestBody final EtapeProductionDTO etapeProductionDTO) throws IOException {
-    return productionService.processEtapeProduction(etapeProductionDTO);
+      @RequestParam final String nomEtape, @RequestParam final String typeEtape)
+      throws IOException {
+    return productionService.processEtapeProduction(nomEtape, typeEtape);
     //     return  clientRepository.save(client);
+  }
+
+  @GetMapping("/getEtapeById/{idEtape}")
+  public EtapeProductionDTO getEtapeById(@PathVariable(value = "idEtape") final String idEtape)
+      throws IOException {
+    return productionService.getEtapeById(idEtape);
+  }
+
+  @GetMapping("/etapes")
+  List<EtapeProductionDTO> etapes() throws IOException {
+    return productionService.etapes();
+  }
+
+  @PutMapping("/updateEtape/{idEtape}")
+  public EtapeProductionDTO updateEtape(
+      @RequestParam final String nomEtape,
+      @RequestParam final String typeEtape,
+      @PathVariable(value = "idEtape") final String idEtape)
+      throws IOException {
+    return productionService.updateEtape(nomEtape, typeEtape, idEtape);
   }
 
   /*

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleService {
@@ -27,6 +28,17 @@ public class ArticleService {
     this.etapeProductionRepository = etapeProductionRepository;
   }
 
+  public List<ArticleDTO> articles() throws IOException {
+    final List<Article> articles = articleRepository.findAll();
+    return articles.stream()
+        .map(article -> ArticleMapper.MAPPER.toArticleDTO(article))
+        .collect(Collectors.toList());
+  }
+
+  public ArticleDTO getArticleById(final String idArticle) throws IOException {
+    return ArticleMapper.MAPPER.toArticleDTO(articleRepository.findArticleById(idArticle));
+  }
+
   public ArticleDTO addArticle(final ArticleDTO articleDTO) throws IOException {
     final Article article = ArticleMapper.MAPPER.toArticle(articleDTO);
     final List<EtapeProduction> etapeProductions = new ArrayList<>();
@@ -40,25 +52,27 @@ public class ArticleService {
     return ArticleMapper.MAPPER.toArticleDTO(articleRepository.save(article));
   }
 
-  public ArticleDTO updateArticle(final ArticleDTO articleDTO, final String idArticle)
+  public ArticleDTO updateArticle(
+      final String codeArticle,
+      final String designation,
+      final List<String> nomEtapeProductions,
+      final String idArticle)
       throws IOException {
     return articleRepository
         .findById(idArticle)
         .map(
             article -> {
-              article.setCodeArticle(articleDTO.getCodeArticle());
-              article.setDesignation(articleDTO.getDesignation());
+              article.setCodeArticle(codeArticle);
+              article.setDesignation(designation);
               final List<EtapeProduction> etapeProductions = new ArrayList<>();
-              articleDTO
-                  .getNomEtapeProductions()
-                  .forEach(
-                      nomEtape ->
-                          etapeProductions.add(
-                              etapeProductionRepository.findEtapeProductionByNomEtape(nomEtape)));
+              nomEtapeProductions.forEach(
+                  nomEtape ->
+                      etapeProductions.add(
+                          etapeProductionRepository.findEtapeProductionByNomEtape(nomEtape)));
               article.setEtapeProductions(etapeProductions);
               return ArticleMapper.MAPPER.toArticleDTO(articleRepository.save(article));
             })
-        .orElseThrow(() -> new NotFoundException(articleDTO.getId() + " not found"));
+        .orElseThrow(() -> new NotFoundException(idArticle + " not found"));
   }
 
   public void deleteArticle(final String idArticle) throws IOException {

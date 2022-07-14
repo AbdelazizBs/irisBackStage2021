@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/article")
@@ -21,16 +22,30 @@ public class ArticleController {
     //     return  clientRepository.save(client);
   }
 
+  @GetMapping("/getArticleById/{idArticle}")
+  public ArticleDTO getArticleById(@PathVariable(value = "idArticle") final String idArticle)
+      throws IOException {
+    return articleService.getArticleById(idArticle);
+  }
+
+  @GetMapping("/articles")
+  List<ArticleDTO> articles() throws IOException {
+    return articleService.articles();
+  }
+
   @PutMapping("/updateArticle/{idArticle}")
   public ArticleDTO updateArticle(
-          @RequestBody final ArticleDTO articleDTO, @PathVariable(value = "idArticle") final String idArticle)
+      @RequestParam final String codeArticle,
+      @RequestParam final String designation,
+      @RequestParam final List<String> nomEtapeProductions,
+      @PathVariable(value = "idArticle") final String idArticle)
       throws IOException {
-    return articleService.updateArticle(articleDTO, idArticle);
+    return articleService.updateArticle(codeArticle, designation, nomEtapeProductions, idArticle);
   }
 
   @DeleteMapping("/deleteArticle/{idArticle}")
-  public ResponseEntity<Void> deleteArticle(@PathVariable(value = "idArticle") final String idArticle)
-      throws IOException {
+  public ResponseEntity<Void> deleteArticle(
+      @PathVariable(value = "idArticle") final String idArticle) throws IOException {
     articleService.deleteArticle(idArticle);
     return ResponseEntity.noContent().build();
   }

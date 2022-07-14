@@ -23,9 +23,9 @@ public class MachineService {
   final EtapeProductionRepository etapeProductionRepository;
 
   public MachineService(
-          final MachineRepository machineRepository,
-          final EtapeProductionRepository etapeProductionRepository,
-          final ClientRepository clientRepository) {
+      final MachineRepository machineRepository,
+      final EtapeProductionRepository etapeProductionRepository,
+      final ClientRepository clientRepository) {
     this.machineRepository = machineRepository;
     this.etapeProductionRepository = etapeProductionRepository;
     this.clientRepository = clientRepository;
@@ -56,7 +56,7 @@ public class MachineService {
     return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
   }
 
-  public MachineDTO getPersonnelById(final String idMachine) throws IOException {
+  public MachineDTO getMachineById(final String idMachine) throws IOException {
     return MachineMapper.MAPPER.toMachineDTO(machineRepository.findMachineById(idMachine));
   }
 

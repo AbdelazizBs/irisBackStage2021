@@ -1,6 +1,7 @@
 package com.iris.irisback.service;
 
 import com.iris.irisback.dto.EtapeProductionDTO;
+import com.iris.irisback.exception.NotFoundException;
 import com.iris.irisback.mapper.EtapeProductionMapper;
 import com.iris.irisback.model.EtapeProduction;
 import com.iris.irisback.repository.ArticleRepository;
@@ -29,11 +30,40 @@ public class EtapeProductionService {
         .collect(Collectors.toList());
   }
 
-  public EtapeProductionDTO processEtapeProduction(final EtapeProductionDTO etapeProductionDTO)
+  public List<EtapeProductionDTO> etapes() throws IOException {
+    final List<EtapeProduction> etapeProductions = etapeProductionRepository.findAll();
+    return etapeProductions.stream()
+        .map(etapeProduction -> EtapeProductionMapper.MAPPER.toEtapeProductionDTO(etapeProduction))
+        .collect(Collectors.toList());
+  }
+
+  public EtapeProductionDTO getEtapeById(final String idEtape) throws IOException {
+    return EtapeProductionMapper.MAPPER.toEtapeProductionDTO(
+        etapeProductionRepository.findEtapeProductionById(idEtape));
+  }
+
+  public EtapeProductionDTO processEtapeProduction(final String nomEtape, final String typeEtape)
       throws IOException {
+    final EtapeProductionDTO etapeProductionDTO = new EtapeProductionDTO();
+    etapeProductionDTO.setNomEtape(nomEtape);
+    etapeProductionDTO.setTypeEtape(typeEtape);
     final EtapeProduction etapeProduction =
         EtapeProductionMapper.MAPPER.toEtapeProduction(etapeProductionDTO);
     return EtapeProductionMapper.MAPPER.toEtapeProductionDTO(
         etapeProductionRepository.save(etapeProduction));
+  }
+
+  public EtapeProductionDTO updateEtape(
+      final String nomEtape, final String typeEtape, final String idEtape) throws IOException {
+    return etapeProductionRepository
+        .findById(idEtape)
+        .map(
+            etapeProduction -> {
+              etapeProduction.setNomEtape(nomEtape);
+              etapeProduction.setTypeEtape(typeEtape);
+              return EtapeProductionMapper.MAPPER.toEtapeProductionDTO(
+                  etapeProductionRepository.save(etapeProduction));
+            })
+        .orElseThrow(() -> new NotFoundException(idEtape + " not found"));
   }
 }

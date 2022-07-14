@@ -11,4 +11,6 @@ public class EtapeProductionDTO {
   private String id;
   private String nomEtape;
   private String typeEtape;
+
+  public EtapeProductionDTO() {}
 }
