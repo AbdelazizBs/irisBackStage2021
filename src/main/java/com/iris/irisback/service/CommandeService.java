@@ -36,7 +36,10 @@ public class CommandeService {
   public CommandeDTO addCommande(final CommandeDTO commandeDTO) throws IOException {
     final Commande commande1 = CommandeMapper.MAPPER.toCommande(commandeDTO);
     final List<Article> articles = new ArrayList<>();
-    commandeDTO.getArticlesId().forEach(id -> articles.add(articleRepository.findArticleById(id)));
+    commandeDTO
+        .getCodeArticles()
+        .forEach(
+            codeArticle -> articles.add(articleRepository.findArticleByCodeArticle(codeArticle)));
     commande1.setArticles(articles);
     final Client client = clientRepository.findClientByNom(commandeDTO.getNomClient());
     commande1.setClient(client);
@@ -48,6 +51,11 @@ public class CommandeService {
     return commandeByClientId.stream()
         .map(commande -> CommandeMapper.MAPPER.toCommandeDTO(commande))
         .collect(Collectors.toList());
+  }
+
+  public CommandeDTO getCmdById(final String idCmd) throws IOException {
+    final Commande commande = commandeRepository.findCommandeById(idCmd);
+    return CommandeMapper.MAPPER.toCommandeDTO(commande);
   }
 
   public List<CommandeDTO> Commandes() throws IOException {
@@ -70,8 +78,8 @@ public class CommandeService {
               commande.setNumCmd(commandeDTO.getNumCmd());
               commande.setDateCmd(commandeDTO.getDateCmd());
               final List<Article> list =
-                  commandeDTO.getArticlesId().stream()
-                      .map((articlesId) -> articleRepository.findArticleById(articlesId))
+                  commandeDTO.getCodeArticles().stream()
+                      .map((codeArticle) -> articleRepository.findArticleByCodeArticle(codeArticle))
                       .collect(toList());
               commande.setArticles(list);
               return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));

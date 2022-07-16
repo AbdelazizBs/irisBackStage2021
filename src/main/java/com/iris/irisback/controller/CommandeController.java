@@ -32,6 +32,11 @@ public class CommandeController {
     return commandeService.myCommandes(clientId);
   }
 
+  @GetMapping("/{idCmd}")
+  CommandeDTO getCmdById(@PathVariable(value = "idCmd") final String idCmd) throws IOException {
+    return commandeService.getCmdById(idCmd);
+  }
+
   @DeleteMapping("/deleteCommande/{idCommande}")
   public ResponseEntity<Void> deleteCommande(
       @PathVariable(value = "idCommande") final String idCommande) throws IOException {

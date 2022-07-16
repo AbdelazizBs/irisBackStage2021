@@ -17,9 +17,19 @@ public class ArticleController {
   @Autowired ArticleService articleService;
 
   @PostMapping("/addArticle")
-  public ArticleDTO addArticle(@RequestBody final ArticleDTO articleDTO) throws IOException {
-    return articleService.addArticle(articleDTO);
+  public ArticleDTO addArticle(
+      @RequestParam final String codeArticle,
+      @RequestParam final String designation,
+      @RequestParam final List<String> nomEtapeProductions)
+      throws IOException {
+    return articleService.addArticle(codeArticle, designation, nomEtapeProductions);
     //     return  clientRepository.save(client);
+  }
+
+  @GetMapping("/getArticleByCodeArticle/{codeArticle}")
+  public ArticleDTO getArticleByCodeArticle(
+      @PathVariable(value = "codeArticle") final String codeArticle) throws IOException {
+    return articleService.getArticleByCodeArticle(codeArticle);
   }
 
   @GetMapping("/getArticleById/{idArticle}")

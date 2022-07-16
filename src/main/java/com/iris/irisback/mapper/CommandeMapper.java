@@ -18,7 +18,7 @@ public abstract class CommandeMapper {
 
   public static CommandeMapper MAPPER = Mappers.getMapper(CommandeMapper.class);
 
-  @Mapping(target = "articlesId", ignore = true)
+  @Mapping(target = "codeArticles", ignore = true)
   @Mapping(target = "nomClient", ignore = true)
   public abstract CommandeDTO toCommandeDTO(Commande commande);
 
@@ -28,8 +28,9 @@ public abstract class CommandeMapper {
 
   @AfterMapping
   void updateCommandeDTO(final Commande commande, @MappingTarget final CommandeDTO commandeDTO) {
-    final List<String> list = commande.getArticles().stream().map(Article::getId).collect(toList());
-    commandeDTO.setArticlesId(list);
+    final List<String> list =
+        commande.getArticles().stream().map(Article::getCodeArticle).collect(toList());
+    commandeDTO.setCodeArticles(list);
     commandeDTO.setNomClient(commande.getClient().getNom());
   }
 

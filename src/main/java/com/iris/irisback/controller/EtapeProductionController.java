@@ -3,6 +3,7 @@ package com.iris.irisback.controller;
 import com.iris.irisback.dto.EtapeProductionDTO;
 import com.iris.irisback.service.EtapeProductionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -48,6 +49,12 @@ public class EtapeProductionController {
     return productionService.updateEtape(nomEtape, typeEtape, idEtape);
   }
 
+  @DeleteMapping("/deleteEtape/{idEtape}")
+  public ResponseEntity<Void> deleteEtape(@PathVariable(value = "idEtape") final String idEtape)
+      throws IOException {
+    productionService.deleteEtape(idEtape);
+    return ResponseEntity.noContent().build();
+  }
   /*
 
 

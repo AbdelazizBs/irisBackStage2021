@@ -18,7 +18,7 @@ public class CommandeDTO {
   private String nomClient;
 
   // private  List<Article> articles ;
-  private List<String> articlesId;
+  private List<String> codeArticles;
   private Boolean accepted = false;
 
   public CommandeDTO() {}

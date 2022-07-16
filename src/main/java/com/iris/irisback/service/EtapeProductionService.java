@@ -66,4 +66,8 @@ public class EtapeProductionService {
             })
         .orElseThrow(() -> new NotFoundException(idEtape + " not found"));
   }
+
+  public void deleteEtape(final String id) throws IOException {
+    etapeProductionRepository.deleteById(id);
+  }
 }

@@ -22,4 +22,5 @@ public class OrdreFabrication {
   private String commentaire;
   private String qtePremierChoix;
   private String qteNonConforme;
+  private Article article;
 }

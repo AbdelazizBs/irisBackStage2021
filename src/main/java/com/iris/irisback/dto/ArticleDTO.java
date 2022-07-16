@@ -15,4 +15,6 @@ public class ArticleDTO {
   private String codeArticle;
   private String designation;
   private List<String> nomEtapeProductions;
+
+  public ArticleDTO() {}
 }

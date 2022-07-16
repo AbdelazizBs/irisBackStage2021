@@ -39,7 +39,18 @@ public class ArticleService {
     return ArticleMapper.MAPPER.toArticleDTO(articleRepository.findArticleById(idArticle));
   }
 
-  public ArticleDTO addArticle(final ArticleDTO articleDTO) throws IOException {
+  public ArticleDTO getArticleByCodeArticle(final String codeArticle) throws IOException {
+    return ArticleMapper.MAPPER.toArticleDTO(
+        articleRepository.findArticleByCodeArticle(codeArticle));
+  }
+
+  public ArticleDTO addArticle(
+      final String codeArticle, final String designation, final List<String> nomEtapeProductions)
+      throws IOException {
+    final ArticleDTO articleDTO = new ArticleDTO();
+    articleDTO.setCodeArticle(codeArticle);
+    articleDTO.setDesignation(designation);
+    articleDTO.setNomEtapeProductions(nomEtapeProductions);
     final Article article = ArticleMapper.MAPPER.toArticle(articleDTO);
     final List<EtapeProduction> etapeProductions = new ArrayList<>();
     articleDTO
