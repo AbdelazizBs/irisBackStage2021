@@ -1,16 +1,38 @@
 package com.iris.irisback.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.iris.irisback.dto.OrdreFabricationDTO;
+import com.iris.irisback.service.OrdreFabricationService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/ordreFabrication")
 @CrossOrigin(origins = "*")
 public class OrdreFabricationController {
 
-  /* public  void  lancementOf(@RequestBody ArticleDTO articleDTO){
+  final OrdreFabricationService ordreFabricationService;
 
-  }*/
+  public OrdreFabricationController(final OrdreFabricationService ordreFabricationService) {
+    this.ordreFabricationService = ordreFabricationService;
+  }
 
+  @PostMapping("/addOf")
+  public OrdreFabricationDTO lancementOf(
+      @RequestParam final Date dateLancement,
+      @RequestParam final Date debutHeure,
+      @RequestParam final Date finHeure,
+      @RequestParam final String commentaire,
+      @RequestParam final String qtePremierChoix,
+      @RequestParam final String qteNonConforme,
+      @RequestParam final String codeArticles) {
+    return ordreFabricationService.addOf(
+        dateLancement,
+        debutHeure,
+        finHeure,
+        commentaire,
+        qtePremierChoix,
+        qteNonConforme,
+        codeArticles);
+  }
 }

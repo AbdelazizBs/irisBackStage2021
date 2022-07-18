@@ -18,4 +18,6 @@ public class OrdreFabricationDTO {
   private String qtePremierChoix;
   private String qteNonConforme;
   private String codeArticles;
+
+  public OrdreFabricationDTO() {}
 }
