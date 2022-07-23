@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/personnel")
@@ -22,6 +23,11 @@ public class PersonnelController {
       throws IOException {
     return personnelService.addPersonnel(personnelDTO);
     //     return  clientRepository.save(client);
+  }
+
+  @GetMapping("/getNomPersonnel")
+  public List<String> getNomPersonnel() throws IOException {
+    return personnelService.getNomPersonnel();
   }
 
   @GetMapping("/getPersonnelById/{idPersonnel}")
@@ -55,30 +61,26 @@ public class PersonnelController {
   @PutMapping("/updatePersonnel/{idPersonnel}")
   public PersonnelDTO updatePersonnel(
       @RequestParam final String cin,
-      @RequestParam final String firstName,
-      @RequestParam final String lastName,
+      @RequestParam final String name,
       @RequestParam final String company,
       @RequestParam final String address,
       @RequestParam final String phone,
       @RequestParam final String country,
       @RequestParam final String genre,
       @RequestParam final Date dateNaissance,
-      @RequestParam final String nomMachine,
       @RequestParam final String login,
       @RequestParam final String password,
       @PathVariable(value = "idPersonnel") final String idPersonnel)
       throws IOException {
     return personnelService.updatePersonnel(
         cin,
-        firstName,
-        lastName,
+        name,
         company,
         address,
         phone,
         country,
         genre,
         dateNaissance,
-        nomMachine,
         login,
         password,
         idPersonnel);

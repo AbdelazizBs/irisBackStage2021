@@ -20,8 +20,8 @@ public class OrdreFabricationController {
   @PostMapping("/addOf")
   public OrdreFabricationDTO lancementOf(
       @RequestParam final Date dateLancement,
-      @RequestParam final Date debutHeure,
-      @RequestParam final Date finHeure,
+      @RequestParam final String debutHeure,
+      @RequestParam final String finHeure,
       @RequestParam final String commentaire,
       @RequestParam final String qtePremierChoix,
       @RequestParam final String qteNonConforme,

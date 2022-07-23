@@ -13,8 +13,8 @@ public class PersonnelDTO {
 
   private String id;
   private String cin;
-  private String firstName;
-  private String lastName;
+  private String name;
+
   private String company;
   private String address;
   private String phone;
@@ -23,7 +23,6 @@ public class PersonnelDTO {
 
   private Date dateNaissance;
 
-  private String nomMachine;
   private String login;
   private String password;
 }

@@ -17,15 +17,13 @@ import java.util.Date;
 public class Personnel {
   @Id private String id;
   private String cin;
-  private String firstName;
-  private String lastName;
+  private String name;
   private String company;
   private String address;
   private String phone;
   private String country;
   private String genre;
   private Date dateNaissance;
-  private Machine machine;
   private String login;
   private String password;
 }

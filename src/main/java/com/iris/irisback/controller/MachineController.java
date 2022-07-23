@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,21 +19,23 @@ public class MachineController {
 
   @PostMapping("/addMachine")
   public MachineDTO addMachine(
-      @RequestParam final String nomMachine,
+      @RequestParam final String designation,
       @RequestParam final String reference,
       @RequestParam final String nomEtapeProduction,
       @RequestParam final String nombreConducteur,
       @RequestParam final Date dateMaintenance,
       @RequestParam final Date dateCreation,
+      @RequestParam final List<String> nomPersonnel,
       @RequestParam final String etat)
       throws IOException {
     return machineService.addMachine(
-        nomMachine,
+        designation,
         reference,
         nomEtapeProduction,
         nombreConducteur,
         dateCreation,
         dateMaintenance,
+        nomPersonnel,
         etat);
   }
 
@@ -47,6 +50,16 @@ public class MachineController {
     return machineService.getNomMachine();
   }
 
+  @GetMapping("/getEtat")
+  public List<String> getEtat() {
+    final List<String> etats = new ArrayList<>();
+    etats.add("En repos");
+    etats.add("En marche");
+    etats.add("En panne");
+    etats.add("En Maintenance");
+    return etats;
+  }
+
   @GetMapping("/getListMachine")
   public List<MachineDTO> getLisMachine() throws IOException {
     return machineService.getLisMachine();
@@ -54,22 +67,24 @@ public class MachineController {
 
   @PutMapping("/updateMachine/{idMachine}")
   public MachineDTO updateMachine(
-      @RequestParam final String nomMachine,
+      @RequestParam final String designation,
       @RequestParam final String reference,
       @RequestParam final String nomEtapeProduction,
       @RequestParam final String nombreConducteur,
       @RequestParam final Date dateMaintenance,
       @RequestParam final Date dateCreation,
       @RequestParam final String etat,
+      @RequestParam final List<String> nomPersonnel,
       @PathVariable(value = "idMachine") final String idMachine)
       throws IOException {
     return machineService.updateMachine(
-        nomMachine,
+        designation,
         reference,
         nomEtapeProduction,
         nombreConducteur,
         dateCreation,
         dateMaintenance,
+        nomPersonnel,
         etat,
         idMachine);
   }

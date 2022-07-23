@@ -2,7 +2,6 @@ package com.iris.irisback.controller;
 
 import com.iris.irisback.dto.CommandeDTO;
 import com.iris.irisback.service.CommandeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,11 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class CommandeController {
 
-  @Autowired CommandeService commandeService;
+  final CommandeService commandeService;
+
+  public CommandeController(final CommandeService commandeService) {
+    this.commandeService = commandeService;
+  }
 
   @PostMapping("/addCommande")
   public CommandeDTO addCommande(@RequestBody final CommandeDTO commandeDTO) throws IOException {

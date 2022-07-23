@@ -25,14 +25,13 @@ public class OrdreFabricationService {
 
   public OrdreFabricationDTO addOf(
       final Date dateLancement,
-      final Date debutHeure,
-      final Date finHeure,
+      final String debutHeure,
+      final String finHeure,
       final String commentaire,
       final String qtePremierChoix,
       final String qteNonConforme,
       final String codeArticles) {
     final OrdreFabricationDTO ordreFabricationDTO = new OrdreFabricationDTO();
-    //       ordreFabricationDTO.setCodeArticles(codeArticles);
     ordreFabricationDTO.setCommentaire(commentaire);
     ordreFabricationDTO.setDateLancement(dateLancement);
     ordreFabricationDTO.setDebutHeure(debutHeure);

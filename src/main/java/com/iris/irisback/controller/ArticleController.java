@@ -2,7 +2,6 @@ package com.iris.irisback.controller;
 
 import com.iris.irisback.dto.ArticleDTO;
 import com.iris.irisback.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,11 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ArticleController {
 
-  @Autowired ArticleService articleService;
+  private final ArticleService articleService;
+
+  public ArticleController(final ArticleService articleService) {
+    this.articleService = articleService;
+  }
 
   @PostMapping("/addArticle")
   public ArticleDTO addArticle(

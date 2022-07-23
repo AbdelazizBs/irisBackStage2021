@@ -7,7 +7,9 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,15 +18,17 @@ import java.util.Date;
 @Document(collection = "machine")
 public class Machine {
   @Id private String id;
-  private String nomMachine;
+
+  @Pattern(regexp = "^[a-zA-Z]*$")
+  private String designation;
+
   private String reference;
   private EtapeProduction etapeProduction;
   private String nombreConducteur;
   private Date dateMaintenance;
   private Date dateCreation;
   private String etat;
+  private List<Personnel> personnel;
 
   public Machine() {}
-  // private List<Personnel> personnel;
-
 }

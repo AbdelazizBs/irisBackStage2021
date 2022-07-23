@@ -17,8 +17,8 @@ import java.util.Date;
 public class OrdreFabrication {
   @Id private String id;
   private Date dateLancement;
-  private Date debutHeure;
-  private Date finHeure;
+  private String debutHeure;
+  private String finHeure;
   private String commentaire;
   private String qtePremierChoix;
   private String qteNonConforme;
