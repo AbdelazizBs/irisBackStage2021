@@ -26,9 +26,9 @@ public class CommandeController {
       @RequestParam final String numCmd,
       @RequestParam final String typeCmd,
       @RequestParam final String nomClient,
-      @RequestParam final List<String> codeArticles)
+      @RequestParam final List<String> refIris)
       throws IOException {
-    return commandeService.addCommande(dateCmd, numCmd, typeCmd, nomClient, codeArticles);
+    return commandeService.addCommande(dateCmd, numCmd, typeCmd, nomClient, refIris);
   }
 
   @GetMapping("/commandes")

@@ -16,7 +16,7 @@ public class CommandeDTO {
   private String numCmd;
   private String typeCmd;
   private String nomClient;
-  private List<String> codeArticles;
+  private List<String> refIris;
   private Boolean accepted = false;
 
   public CommandeDTO() {}

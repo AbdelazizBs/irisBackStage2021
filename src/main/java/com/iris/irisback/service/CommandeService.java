@@ -39,27 +39,26 @@ public class CommandeService {
       final String numCmd,
       final String typeCmd,
       final String nomClient,
-      final List<String> codeArticles)
+      final List<String> refIris)
       throws IOException {
     final CommandeDTO commandeDTO = new CommandeDTO();
     commandeDTO.setDateCmd(dateCmd);
-    commandeDTO.setCodeArticles(codeArticles);
+    commandeDTO.setRefIris(refIris);
     commandeDTO.setNomClient(nomClient);
     commandeDTO.setTypeCmd(typeCmd);
     commandeDTO.setNumCmd(numCmd);
     final Commande commande1 = CommandeMapper.MAPPER.toCommande(commandeDTO);
     final List<Article> articles = new ArrayList<>();
     commandeDTO
-        .getCodeArticles()
-        .forEach(
-            codeArticle -> articles.add(articleRepository.findArticleByCodeArticle(codeArticle)));
+        .getRefIris()
+        .forEach(codeArticle -> articles.add(articleRepository.findArticleByRefIris(codeArticle)));
     commande1.setArticles(articles);
     final Client client = clientRepository.findClientByNom(commandeDTO.getNomClient());
     commande1.setClient(client);
     return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande1));
   }
 
-  public List<CommandeDTO> myCommandes(final String clientId) throws IOException {
+  public List<CommandeDTO> myCommandes(final String clientId) {
     final List<Commande> commandeByClientId = commandeRepository.findCommandeByClientId(clientId);
     return commandeByClientId.stream()
         .map(commande -> CommandeMapper.MAPPER.toCommandeDTO(commande))
@@ -91,8 +90,8 @@ public class CommandeService {
               commande.setNumCmd(commandeDTO.getNumCmd());
               commande.setDateCmd(commandeDTO.getDateCmd());
               final List<Article> list =
-                  commandeDTO.getCodeArticles().stream()
-                      .map((codeArticle) -> articleRepository.findArticleByCodeArticle(codeArticle))
+                  commandeDTO.getRefIris().stream()
+                      .map(articleRepository::findArticleByRefIris)
                       .collect(toList());
               commande.setArticles(list);
               return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));

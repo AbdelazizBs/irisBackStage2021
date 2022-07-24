@@ -12,8 +12,8 @@ import java.util.List;
 public class ArticleDTO {
 
   private String id;
-  private String codeArticle;
-  private String designation;
+  private String refIris;
+  private String refClient;
   private List<String> nomEtapeProductions;
 
   public ArticleDTO() {}

@@ -16,9 +16,8 @@ import java.util.List;
 @Document(collection = "article")
 public class Article {
   @Id private String id;
-  private String codeArticle;
-  private String designation;
-
+  private String refIris;
+  private String refClient;
   private List<EtapeProduction> etapeProductions;
 
   public Article() {}

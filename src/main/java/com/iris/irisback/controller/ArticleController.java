@@ -21,18 +21,16 @@ public class ArticleController {
 
   @PostMapping("/addArticle")
   public ArticleDTO addArticle(
-      @RequestParam final String codeArticle,
-      @RequestParam final String designation,
-      @RequestParam final List<String> nomEtapeProductions)
-      throws IOException {
-    return articleService.addArticle(codeArticle, designation, nomEtapeProductions);
-    //     return  clientRepository.save(client);
+      @RequestParam final String refIris,
+      @RequestParam final String refClient,
+      @RequestParam final List<String> nomEtapeProductions) {
+    return articleService.addArticle(refIris, refClient, nomEtapeProductions);
   }
 
-  @GetMapping("/getArticleByCodeArticle/{codeArticle}")
-  public ArticleDTO getArticleByCodeArticle(
-      @PathVariable(value = "codeArticle") final String codeArticle) throws IOException {
-    return articleService.getArticleByCodeArticle(codeArticle);
+  @GetMapping("/getArticleByRefIris/{refIris}")
+  public ArticleDTO getArticleByCodeArticle(@PathVariable(value = "refIris") final String refIris)
+      throws IOException {
+    return articleService.getArticleByCodeArticle(refIris);
   }
 
   @GetMapping("/getArticleById/{idArticle}")
@@ -48,12 +46,12 @@ public class ArticleController {
 
   @PutMapping("/updateArticle/{idArticle}")
   public ArticleDTO updateArticle(
-      @RequestParam final String codeArticle,
-      @RequestParam final String designation,
+      @RequestParam final String refIris,
+      @RequestParam final String refClient,
       @RequestParam final List<String> nomEtapeProductions,
       @PathVariable(value = "idArticle") final String idArticle)
       throws IOException {
-    return articleService.updateArticle(codeArticle, designation, nomEtapeProductions, idArticle);
+    return articleService.updateArticle(refIris, refClient, nomEtapeProductions, idArticle);
   }
 
   @DeleteMapping("/deleteArticle/{idArticle}")
@@ -63,8 +61,8 @@ public class ArticleController {
     return ResponseEntity.noContent().build();
   }
 
-  @GetMapping("/getCodeArticles")
-  public List<String> getCodeArticles() throws IOException {
-    return articleService.getCodeArticles();
+  @GetMapping("/getRefIris")
+  public List<String> getRefIris() throws IOException {
+    return articleService.getRefIris();
   }
 }

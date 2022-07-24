@@ -40,7 +40,7 @@ public class OrdreFabricationService {
     ordreFabricationDTO.setQtePremierChoix(qtePremierChoix);
     final OrdreFabrication ordreFabrication =
         OrdreFabricationMapper.MAPPER.toOrdreFabrication(ordreFabricationDTO);
-    final Article article = articleRepository.findArticleByCodeArticle(codeArticles);
+    final Article article = articleRepository.findArticleByRefIris(codeArticles);
     ordreFabrication.setArticle(article);
     return OrdreFabricationMapper.MAPPER.toOrdreFabricationDTO(
         ordreFabricationRepository.save(ordreFabrication));

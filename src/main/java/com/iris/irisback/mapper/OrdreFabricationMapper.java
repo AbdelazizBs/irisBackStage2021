@@ -23,7 +23,7 @@ public abstract class OrdreFabricationMapper {
   void updateOrdreFabricationDTO(
       final OrdreFabrication ordreFabrication,
       @MappingTarget final OrdreFabricationDTO ordreFabricationDTO) {
-    ordreFabricationDTO.setCodeArticles(ordreFabrication.getArticle().getCodeArticle());
+    ordreFabricationDTO.setCodeArticles(ordreFabrication.getArticle().getRefIris());
   }
 
   @AfterMapping
