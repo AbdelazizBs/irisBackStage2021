@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/client")
@@ -62,5 +63,10 @@ public class ClientController {
   @PutMapping("/activateClient/{idClient}")
   public ClientDTO activateClient(@PathVariable(value = "idClient") final String idClient) {
     return clientService.activateClient(idClient);
+  }
+
+  @GetMapping("/getNomClients")
+  public List<String> getNomClients() throws IOException {
+    return clientService.getNomClients();
   }
 }

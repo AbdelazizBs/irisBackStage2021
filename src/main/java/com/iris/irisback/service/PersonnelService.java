@@ -101,7 +101,7 @@ public class PersonnelService {
         .orElseThrow(() -> new NotFoundException(idPersonnel + " not found"));
   }
 
-  public CommandeDTO inverse(final String idCommande) throws IOException {
+  public CommandeDTO inverse(final String idCommande) {
     final Commande commande = commandeRepository.findCommandeById(idCommande);
     commande.setAccepted(!commande.getAccepted());
     return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));

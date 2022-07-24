@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,19 @@ public class CommandeService {
     this.articleRepository = articleRepository;
   }
 
-  public CommandeDTO addCommande(final CommandeDTO commandeDTO) throws IOException {
+  public CommandeDTO addCommande(
+      final Date dateCmd,
+      final String numCmd,
+      final String typeCmd,
+      final String nomClient,
+      final List<String> codeArticles)
+      throws IOException {
+    final CommandeDTO commandeDTO = new CommandeDTO();
+    commandeDTO.setDateCmd(dateCmd);
+    commandeDTO.setCodeArticles(codeArticles);
+    commandeDTO.setNomClient(nomClient);
+    commandeDTO.setTypeCmd(typeCmd);
+    commandeDTO.setNumCmd(numCmd);
     final Commande commande1 = CommandeMapper.MAPPER.toCommande(commandeDTO);
     final List<Article> articles = new ArrayList<>();
     commandeDTO

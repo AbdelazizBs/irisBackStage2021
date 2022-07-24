@@ -119,4 +119,15 @@ public class MachineService {
   public void deleteMachine(final String id) throws IOException {
     machineRepository.deleteById(id);
   }
+
+  public MachineDTO etat(final String idMachine) {
+    final Machine machine = machineRepository.findMachineById(idMachine);
+      switch (machine.getEtat()) {
+          case "En repos" -> machine.setEtat("En marche");
+          case "En marche" -> machine.setEtat("En panne");
+          case "En panne" -> machine.setEtat("En Maintenance");
+          case "En Maintenance" -> machine.setEtat("En repos");
+      }
+    return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
+  }
 }

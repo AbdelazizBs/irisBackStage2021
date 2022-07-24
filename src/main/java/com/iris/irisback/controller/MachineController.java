@@ -95,4 +95,9 @@ public class MachineController {
     machineService.deleteMachine(idMachine);
     return ResponseEntity.noContent().build();
   }
+
+  @PutMapping("/etat/{idMachine}")
+  public MachineDTO etat(@PathVariable(value = "idMachine") final String idMachine) {
+    return machineService.etat(idMachine);
+  }
 }

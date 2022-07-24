@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -82,5 +84,9 @@ public class ClientService {
               return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
             })
         .orElseThrow(() -> new NotFoundException(idClient + " not found"));
+  }
+
+  public List<String> getNomClients() throws IOException {
+    return clientRepository.findAll().stream().map(Client::getNom).collect(Collectors.toList());
   }
 }

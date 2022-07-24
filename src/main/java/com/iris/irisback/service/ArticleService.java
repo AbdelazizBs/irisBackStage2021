@@ -89,4 +89,10 @@ public class ArticleService {
   public void deleteArticle(final String idArticle) throws IOException {
     articleRepository.deleteById(idArticle);
   }
+
+  public List<String> getCodeArticles() throws IOException {
+    return articleRepository.findAll().stream()
+        .map(Article::getCodeArticle)
+        .collect(Collectors.toList());
+  }
 }

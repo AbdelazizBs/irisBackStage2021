@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,14 @@ public class CommandeController {
   }
 
   @PostMapping("/addCommande")
-  public CommandeDTO addCommande(@RequestBody final CommandeDTO commandeDTO) throws IOException {
-    return commandeService.addCommande(commandeDTO);
+  public CommandeDTO addCommande(
+      @RequestParam final Date dateCmd,
+      @RequestParam final String numCmd,
+      @RequestParam final String typeCmd,
+      @RequestParam final String nomClient,
+      @RequestParam final List<String> codeArticles)
+      throws IOException {
+    return commandeService.addCommande(dateCmd, numCmd, typeCmd, nomClient, codeArticles);
   }
 
   @GetMapping("/commandes")

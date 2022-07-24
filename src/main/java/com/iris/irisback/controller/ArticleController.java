@@ -62,4 +62,9 @@ public class ArticleController {
     articleService.deleteArticle(idArticle);
     return ResponseEntity.noContent().build();
   }
+
+  @GetMapping("/getCodeArticles")
+  public List<String> getCodeArticles() throws IOException {
+    return articleService.getCodeArticles();
+  }
 }
