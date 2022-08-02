@@ -81,7 +81,7 @@ public class PersonnelController {
       @RequestParam final String email,
       @RequestParam final String password,
       @PathVariable(value = "idPersonnel") final String idPersonnel)
-      throws IOException {
+        {
     return personnelService.updatePersonnel(
         cin,
         name,
@@ -98,14 +98,14 @@ public class PersonnelController {
 
   @DeleteMapping("/deletePersonnel/{idPersonnel}")
   public ResponseEntity<Void> deletePersonnel(
-      @PathVariable(value = "idPersonnel") final String idPersonnel) throws IOException {
+      @PathVariable(value = "idPersonnel") final String idPersonnel)   {
     personnelService.deletePersonnel(idPersonnel);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping("/inverse/{idCommande}")
   public CommandeDTO acceptCmd(@PathVariable(value = "idCommande") final String idCommande)
-      throws IOException {
+        {
     return personnelService.inverse(idCommande);
   }
 }

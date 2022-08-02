@@ -18,14 +18,12 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
   final ArticleRepository articleRepository;
-
+final ClientRepository clientRepository;
   final EtapeProductionRepository etapeProductionRepository;
-  final
-  ClientRepository clientRepository ;
 
   public ArticleService(
           final ArticleRepository articleRepository,
-          final EtapeProductionRepository etapeProductionRepository, final ClientRepository clientRepository) {
+          final EtapeProductionRepository etapeProductionRepository,final ClientRepository clientRepository) {
     this.articleRepository = articleRepository;
     this.etapeProductionRepository = etapeProductionRepository;
     this.clientRepository = clientRepository;
@@ -42,22 +40,24 @@ public class ArticleService {
     return ArticleMapper.MAPPER.toArticleDTO(articleRepository.findArticleById(idArticle));
   }
   public List <ArticleDTO> getArticle(final String idClient) {
-  final String refArticle =  clientRepository.findClientById(idClient).getReference();
-    final List<Article> articles = articleRepository.findArticleByRefClient(refArticle);
+  final String refArticle =  clientRepository.findClientById(idClient).getRefArticle();
+    final List<Article> articles = articleRepository.findArticleByRefArticle(refArticle);
     return articles.stream()
             .map(article -> ArticleMapper.MAPPER.toArticleDTO(article))
             .collect(Collectors.toList());
   }
 
   public ArticleDTO getArticleByCodeArticle(final String codeArticle) {
-    return ArticleMapper.MAPPER.toArticleDTO(articleRepository.findArticleByRefIris(codeArticle));
+    return ArticleMapper.MAPPER.toArticleDTO(articleRepository.findArticleByRefIris(codeArticle)
+                    .orElseThrow(() -> new NotFoundException(codeArticle + " not found")));
   }
 
   public ArticleDTO addArticle(
-      final String refIris, final String refClient, final List<String> nomEtapeProductions) {
+      final String refIris, final String refClient,final String refArticle, final List<String> nomEtapeProductions) {
     final ArticleDTO articleDTO = new ArticleDTO();
     articleDTO.setRefIris(refIris);
     articleDTO.setRefClient(refClient);
+    articleDTO.setRefArticle(refArticle);
     articleDTO.setNomEtapeProductions(nomEtapeProductions);
     final Article article = ArticleMapper.MAPPER.toArticle(articleDTO);
     final List<EtapeProduction> etapeProductions = new ArrayList<>();
@@ -71,10 +71,33 @@ public class ArticleService {
 
     return ArticleMapper.MAPPER.toArticleDTO(articleRepository.save(article));
   }
-
+  public ArticleDTO addToClient(
+    final String refIris,
+    final String refClient,
+    final String nomClient,
+    final List<String> nomEtapeProductions) {
+    final String refA = clientRepository.findClientByNom(nomClient).getRefArticle();
+      return articleRepository
+              .findArticleByRefIris(refIris)
+              .map(
+                      article -> {
+                        article.setRefIris(refIris);
+                        article.setRefClient(refClient);
+                        article.setRefArticle(refA);
+                        final List<EtapeProduction> etapeProductions = new ArrayList<>();
+                        nomEtapeProductions.forEach(
+                                nomEtape ->
+                                        etapeProductions.add(
+                                                etapeProductionRepository.findEtapeProductionByNomEtape(nomEtape)));
+                        article.setEtapeProductions(etapeProductions);
+                        return ArticleMapper.MAPPER.toArticleDTO(articleRepository.save(article));
+                      })
+              .orElseThrow(() -> new NotFoundException(refIris + " not found"));
+    }
   public ArticleDTO updateArticle(
       final String refIris,
       final String refClient,
+      final String refArticle,
       final List<String> nomEtapeProductions,
       final String idArticle) {
     return articleRepository
@@ -83,7 +106,7 @@ public class ArticleService {
             article -> {
               article.setRefIris(refIris);
               article.setRefClient(refClient);
-
+              article.setRefArticle(refArticle);
               final List<EtapeProduction> etapeProductions = new ArrayList<>();
               nomEtapeProductions.forEach(
                   nomEtape ->

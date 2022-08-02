@@ -17,8 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class CommandeService {
   private final CommandeRepository commandeRepository;
@@ -51,7 +49,7 @@ public class CommandeService {
     final List<Article> articles = new ArrayList<>();
     commandeDTO
         .getRefIris()
-        .forEach(codeArticle -> articles.add(articleRepository.findArticleByRefIris(codeArticle)));
+        .forEach(codeArticle -> articles.add(articleRepository.findArticleByRefIris(codeArticle) .orElseThrow(() -> new NotFoundException(codeArticle + " not found"))));
     commande1.setArticles(articles);
     final Client client = clientRepository.findClientByNom(commandeDTO.getNomClient());
     commande1.setClient(client);
@@ -83,21 +81,21 @@ public class CommandeService {
     commandeRepository.deleteById(id);
   }
 
-  public CommandeDTO updateCommande(final CommandeDTO commandeDTO, final String commandeId) {
-    return commandeRepository
-        .findById(commandeId)
-        .map(
-            commande -> {
-              commande.setTypeCmd(commandeDTO.getTypeCmd());
-              commande.setNumCmd(commandeDTO.getNumCmd());
-              commande.setDateCmd(commandeDTO.getDateCmd());
-              final List<Article> list =
-                  commandeDTO.getRefIris().stream()
-                      .map(articleRepository::findArticleByRefIris)
-                      .collect(toList());
-              commande.setArticles(list);
-              return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
-            })
-        .orElseThrow(() -> new NotFoundException("Commande Id  " + commandeId + " not found"));
-  }
+//  public CommandeDTO updateCommande(final CommandeDTO commandeDTO, final String commandeId) {
+//    return commandeRepository
+//        .findById(commandeId)
+//        .map(
+//            commande -> {
+//              commande.setTypeCmd(commandeDTO.getTypeCmd());
+//              commande.setNumCmd(commandeDTO.getNumCmd());
+//              commande.setDateCmd(commandeDTO.getDateCmd());
+//              final List<Article> list =
+//                  commandeDTO.getRefIris().stream()
+//                      .map(articleRepository::findArticleByRefIris)
+//                      .collect(toList());
+//              commande.setArticles(list);
+//              return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
+//            })
+//        .orElseThrow(() -> new NotFoundException("Commande Id  " + commandeId + " not found"));
+//  }
 }

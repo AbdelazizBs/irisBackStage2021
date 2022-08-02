@@ -17,6 +17,7 @@ public class ClientDTO {
   private String country;
   private String email;
   private String reference;
+  private String refArticle;
 
 //  private String password;
   private Boolean active;

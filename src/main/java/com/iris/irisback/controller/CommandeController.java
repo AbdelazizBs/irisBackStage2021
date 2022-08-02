@@ -54,10 +54,10 @@ public class CommandeController {
     return ResponseEntity.noContent().build();
   }
 
-  @PutMapping("/updateCommande/{commandeId}")
-  public CommandeDTO updateCommande(
-      @RequestBody final CommandeDTO commandeDTO,
-      @PathVariable("commandeId") final String commandeId) {
-    return commandeService.updateCommande(commandeDTO, commandeId);
-  }
+//  @PutMapping("/updateCommande/{commandeId}")
+//  public CommandeDTO updateCommande(
+//      @RequestBody final CommandeDTO commandeDTO,
+//      @PathVariable("commandeId") final String commandeId) {
+//    return commandeService.updateCommande(commandeDTO, commandeId);
+//  }
 }

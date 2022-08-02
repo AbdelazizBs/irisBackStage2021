@@ -22,10 +22,20 @@ public class ArticleController {
   public ArticleDTO addArticle(
       @RequestParam final String refIris,
       @RequestParam final String refClient,
+      @RequestParam final String refArticle,
       @RequestParam final List<String> nomEtapeProductions) {
-    return articleService.addArticle(refIris, refClient, nomEtapeProductions);
+    return articleService.addArticle(refIris, refClient,refArticle, nomEtapeProductions);
   }
+// add put method to update article and add a new one refArticle get from path variable
 
+    @PutMapping("/addToClient/{nomClient}")
+    public ArticleDTO addToClient(
+        @RequestParam final String refIris,
+        @RequestParam final String refClient,
+        @PathVariable final String nomClient,
+        @RequestParam final List<String> nomEtapeProductions) {
+      return articleService.addToClient(refIris, refClient,nomClient, nomEtapeProductions);
+    }
   @GetMapping("/getArticle/{idClient}")
   public List<ArticleDTO> getArticle(@PathVariable(value = "idClient") final String idClient){
     return articleService.getArticle(idClient);
@@ -50,9 +60,10 @@ public class ArticleController {
   public ArticleDTO updateArticle(
       @RequestParam final String refIris,
       @RequestParam final String refClient,
+      @RequestParam final String refArticle,
       @RequestParam final List<String> nomEtapeProductions,
       @PathVariable(value = "idArticle") final String idArticle) {
-    return articleService.updateArticle(refIris, refClient, nomEtapeProductions, idArticle);
+    return articleService.updateArticle(refIris, refClient,refArticle, nomEtapeProductions, idArticle);
   }
 
   @DeleteMapping("/deleteArticle/{idArticle}")

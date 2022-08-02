@@ -48,9 +48,10 @@ public class ClientService {
                                        final String phone,
                                        final String country,
                                        final String reference,
+                                       final String refArticle,
                                        final String email)
         {
-    final Client clientExist = clientRepository.findClientByEmail(email);
+  //  final Client clientExist = clientRepository.findClientByEmail(email);
 //    if (clientExist != null) {
 //      bindingResult.rejectValue(
 //          "email", "error.user", "There is already a user registered with the email provided");
@@ -63,6 +64,7 @@ public class ClientService {
     clientDTO.setAddress(address);
     clientDTO.setPhone(phone);
     clientDTO.setReference(reference);
+    clientDTO.setRefArticle(refArticle);
     final Client client = ClientMapper.MAPPER.toClient(clientDTO);
     client.setActive(false);
     // client.setPassword(bCryptPasswordEncoder.encode(clientDTO.getPassword()));
@@ -76,6 +78,7 @@ public class ClientService {
                                       final String country,
                                       final String email,
                                       final String reference,
+                                      final String refArticle,
                                       final String idClient)
         {
     return clientRepository
@@ -88,6 +91,7 @@ public class ClientService {
               client.setEmail(email);
               client.setNom(nom);
               client.setReference(reference);
+              client.setRefArticle(refArticle);
 //              client.setPassword(clientDTO.getPassword());
               client.setPhone(phone);
               return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));

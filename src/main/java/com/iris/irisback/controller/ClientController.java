@@ -29,10 +29,11 @@ public class ClientController {
           @RequestParam final String phone,
           @RequestParam final String country,
           @RequestParam final String reference,
+          @RequestParam final String refArticle,
           @RequestParam final String email
           )
         {
-    return clientService.addClient(nom,company,address,phone,country,reference,email);
+    return clientService.addClient(nom,company,address,phone,country,reference,refArticle,email);
     //     return  clientRepository.save(client);
   }
 
@@ -44,10 +45,11 @@ public class ClientController {
       @RequestParam final String phone,
       @RequestParam final String country,
       @RequestParam final String reference,
+      @RequestParam final String refArticle,
       @RequestParam final String email,
       @PathVariable(value = "idClient") final String idClient)
         {
-    return clientService.updateClient(nom,company,address,phone,country,email,reference, idClient);
+    return clientService.updateClient(nom,company,address,phone,country,email,reference,refArticle, idClient);
   }
 
 //  @PostMapping("/login")
