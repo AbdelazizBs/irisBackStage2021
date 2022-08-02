@@ -3,6 +3,7 @@ package com.iris.irisback.configurations;
 // import io.jsonwebtoken.Claims;
 // import io.jsonwebtoken.Jwts;
 // import io.jsonwebtoken.SignatureAlgorithm;
+// import org.springframework.beans.factory.annotation.Value;
 // import org.springframework.security.core.userdetails.UserDetails;
 // import org.springframework.stereotype.Component;
 //
@@ -14,8 +15,11 @@ package com.iris.irisback.configurations;
 //
 // @Component
 // public class JwtTokenUtil implements Serializable {
-//  public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
-//  private final String secret = "ams2020";
+//  public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60; // durée de vie  de token
+//  //  private final String secret = "ams2020";
+//
+//  @Value("${jwt.secret}")
+//  private String secret;
 //
 //  public String getUsernameFromToken(final String token) {
 //    return getClaimFromToken(token, Claims::getSubject);

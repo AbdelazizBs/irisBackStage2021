@@ -15,12 +15,10 @@ import static java.util.stream.Collectors.toList;
 
 @Mapper
 public abstract class MachineMapper {
-
   public static MachineMapper MAPPER = Mappers.getMapper(MachineMapper.class);
-
-  //  @Mapping(target = "etapeProduction", ignore = true)
   @Mapping(target = "nomEtapeProduction", ignore = true)
   @Mapping(target = "nomPersonnel", ignore = true)
+  @Mapping(target = "nombreConducteur", ignore = true)
   public abstract MachineDTO toMachineDTO(Machine machine);
 
   @Mapping(target = "etapeProduction", ignore = true)
@@ -28,11 +26,14 @@ public abstract class MachineMapper {
   public abstract Machine toMachine(MachineDTO machineDTO);
 
   @AfterMapping
-  void updateMaachineDTO(final Machine machine, @MappingTarget final MachineDTO machineDTO) {
+  void updateMachineDTO(final Machine machine, @MappingTarget final MachineDTO machineDTO) {
     machineDTO.setNomEtapeProduction(machine.getEtapeProduction().getNomEtape());
+//    if (machine.getPersonnel()!= null){
     final List<String> list =
         machine.getPersonnel().stream().map(Personnel::getName).collect(toList());
     machineDTO.setNomPersonnel(list);
+//    }
+//    machineDTO.setNomPersonnel(null);
   }
 
   @AfterMapping

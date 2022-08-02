@@ -1,5 +1,8 @@
 package com.iris.irisback.configurations;
-
+//
+// import org.springframework.security.core.AuthenticationException;
+// import org.springframework.security.web.AuthenticationEntryPoint;
+// import org.springframework.stereotype.Component;
 //
 // import javax.servlet.http.HttpServletRequest;
 // import javax.servlet.http.HttpServletResponse;
@@ -7,7 +10,7 @@ package com.iris.irisback.configurations;
 // import java.io.Serializable;
 //
 // @Component
-// public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
+// public class JwtAuthenticationEntryPoint implements Serializable, AuthenticationEntryPoint {
 //  @Override
 //  public void commence(
 //      final HttpServletRequest request,

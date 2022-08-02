@@ -20,7 +20,9 @@ public class Client {
   private String phone;
   private String country;
   private String email;
-  private String password;
+  private String reference;
+
+  //  private String password;
   private Boolean active;
   //  private List<Commande> commandes;
 

@@ -2,7 +2,7 @@ package com.iris.irisback.controller;
 
 import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.service.ClientService;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,39 +19,57 @@ public class ClientController {
     this.clientService = clientService;
   }
 
+
+
   @PostMapping("/addClient")
   public ClientDTO addClient(
-      @RequestBody final ClientDTO clientDTO, final BindingResult bindingResult)
-      throws IOException {
-    return clientService.addClient(clientDTO, bindingResult);
+          @RequestParam final String nom,
+          @RequestParam final String company,
+          @RequestParam final String address,
+          @RequestParam final String phone,
+          @RequestParam final String country,
+          @RequestParam final String reference,
+          @RequestParam final String email
+          )
+        {
+    return clientService.addClient(nom,company,address,phone,country,reference,email);
     //     return  clientRepository.save(client);
   }
 
   @PutMapping("/updateClient/{idClient}")
   public ClientDTO updateClient(
-      @RequestBody final ClientDTO clientDTO,
+      @RequestParam final String nom,
+      @RequestParam final String company,
+      @RequestParam final String address,
+      @RequestParam final String phone,
+      @RequestParam final String country,
+      @RequestParam final String reference,
+      @RequestParam final String email,
       @PathVariable(value = "idClient") final String idClient)
-      throws IOException {
-    return clientService.updateClient(clientDTO, idClient);
+        {
+    return clientService.updateClient(nom,company,address,phone,country,email,reference, idClient);
   }
 
-  @PostMapping("/login")
-  public ClientDTO login(
-      @Valid @RequestParam(value = "email") final String email,
-      @RequestParam(value = "password") final String password)
-      throws IOException {
-    return clientService.login(email, password);
-  }
+//  @PostMapping("/login")
+//  public ClientDTO login(
+//      @Valid @RequestParam(value = "email") final String email,
+//      @RequestParam(value = "password") final String password)
+//      throws IOException {
+//    return clientService.login(email, password);
+//  }
 
   @GetMapping("/getClientById/{idClient}")
   public ClientDTO getClientbyid(@PathVariable(value = "idClient") final String idClient)
-      throws IOException {
+        {
     return clientService.getClientById(idClient);
   }
-
+  @GetMapping("/getListClient")
+  public List<ClientDTO> getListClient()   {
+    return clientService.getListClient();
+  }
   @GetMapping("/getClientByEmail")
   public ClientDTO getClientByEmail(@Valid @RequestParam(value = "email") final String email)
-      throws IOException {
+        {
     return clientService.getClientByEmail(email);
   }
 
@@ -60,6 +78,13 @@ public class ClientController {
     return clientService.desactivateClient(idClient);
   }
 
+
+  @DeleteMapping("/deleteClient/{idClient}")
+  public ResponseEntity<Void> deleteClient(
+          @PathVariable(value = "idClient") final String idClient) {
+    clientService.deleteClient(idClient);
+    return ResponseEntity.noContent().build();
+  }
   @PutMapping("/activateClient/{idClient}")
   public ClientDTO activateClient(@PathVariable(value = "idClient") final String idClient) {
     return clientService.activateClient(idClient);

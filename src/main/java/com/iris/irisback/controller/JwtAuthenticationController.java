@@ -1,9 +1,8 @@
-package com.iris.irisback.controller;
+// package com.iris.irisback.controller;
 //
 // import com.iris.irisback.configurations.JwtTokenUtil;
 // import com.iris.irisback.model.JwtRequest;
 // import com.iris.irisback.model.JwtResponse;
-// import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.http.ResponseEntity;
 // import org.springframework.security.authentication.AuthenticationManager;
 // import org.springframework.security.authentication.BadCredentialsException;
@@ -16,9 +15,18 @@ package com.iris.irisback.controller;
 // @RestController
 // @CrossOrigin(origins = "*")
 // public class JwtAuthenticationController {
-//  @Autowired private AuthenticationManager authenticationManager;
-//  @Autowired private JwtTokenUtil jwtTokenUtil;
-//  @Autowired private UserDetailsService jwtInMemoryUserDetailsService;
+//  private final AuthenticationManager authenticationManager;
+//  private final JwtTokenUtil jwtTokenUtil;
+//  private final UserDetailsService jwtInMemoryUserDetailsService;
+//
+//  public JwtAuthenticationController(
+//      final AuthenticationManager authenticationManager,
+//      final JwtTokenUtil jwtTokenUtil,
+//      final UserDetailsService jwtInMemoryUserDetailsService) {
+//    this.authenticationManager = authenticationManager;
+//    this.jwtTokenUtil = jwtTokenUtil;
+//    this.jwtInMemoryUserDetailsService = jwtInMemoryUserDetailsService;
+//  }
 //
 //  @RequestMapping(
 //      value = {"/auth"},
@@ -40,6 +48,8 @@ package com.iris.irisback.controller;
 //      throw new Exception("USER_DISABLED", e);
 //    } catch (final BadCredentialsException e) {
 //      throw new Exception("INVALID_CREDENTIALS", e);
+//    } catch (final Exception e) {
+//      e.printStackTrace();
 //    }
 //  }
 // }

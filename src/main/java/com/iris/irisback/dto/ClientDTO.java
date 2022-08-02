@@ -16,7 +16,13 @@ public class ClientDTO {
   private String phone;
   private String country;
   private String email;
-  private String password;
+  private String reference;
+
+//  private String password;
   private Boolean active;
+
+  public ClientDTO() {
+
+  }
   // private List<String> commandesId;
 }

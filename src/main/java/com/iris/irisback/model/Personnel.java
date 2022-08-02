@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,6 +25,7 @@ public class Personnel {
   private String country;
   private String genre;
   private Date dateNaissance;
-  private String login;
-  private String password;
+  private Set<Role> personnelRoles;
+  private Compte compte;
+  //  private Role role;
 }

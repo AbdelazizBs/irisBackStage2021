@@ -1,24 +1,24 @@
 package com.iris.irisback.service;
 //
-// import org.springframework.security.core.userdetails.User;
-// import org.springframework.security.core.userdetails.UserDetails;
-// import org.springframework.security.core.userdetails.UserDetailsService;
-// import org.springframework.security.core.userdetails.UsernameNotFoundException;
-// import org.springframework.stereotype.Service;
-//
-// import java.util.ArrayList;
+//import com.iris.irisback.model.Personnel;
+//import com.iris.irisback.repository.PersonnelRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.stereotype.Service;
 //
 // @Service
 // public class JwtUserDetailsService implements UserDetailsService {
+//  @Autowired PersonnelRepository personnelRepository;
+//
 //  @Override
 //  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-//    if ("azzouz".equals(username)) {
-//      return new User(
-//          "azzouz",
-//          "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-//          new ArrayList<>());
-//    } else {
-//      throw new UsernameNotFoundException("User not found with username: " + username);
-//    }
+//    final Personnel personnel = personnelRepository.findPersonnelByName(username);
+//    if (personnel == null) return null;
+//    final String login = personnel.getCompte().getEmail();
+//    final String password = personnel.getCompte().getPassword();
+//    return new User(login, password, null);
 //  }
 // }

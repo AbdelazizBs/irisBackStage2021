@@ -1,8 +1,10 @@
 package com.iris.irisback.repository;
 
-import com.iris.irisback.model.OrdreFabrication;
+import com.iris.irisback.model.Role;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrdreFabricationRepository extends MongoRepository<OrdreFabrication, String> {}
+public interface RoleRepository extends MongoRepository<Role, String> {
+  Role findByRole(String role);
+}

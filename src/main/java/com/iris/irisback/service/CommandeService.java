@@ -65,8 +65,10 @@ public class CommandeService {
         .collect(Collectors.toList());
   }
 
-  public CommandeDTO getCmdById(final String idCmd) throws IOException {
-    final Commande commande = commandeRepository.findCommandeById(idCmd);
+  public CommandeDTO getCmdById(final String idCmd)   {
+    final Commande commande = commandeRepository.findCommandeById(idCmd)
+            .orElseThrow(() -> new NotFoundException("Commande Id  " + idCmd + " not found"));
+    ;
     return CommandeMapper.MAPPER.toCommandeDTO(commande);
   }
 
@@ -77,7 +79,7 @@ public class CommandeService {
         .collect(Collectors.toList());
   }
 
-  public void deleteCommande(final String id) throws IOException {
+  public void deleteCommande(final String id)   {
     commandeRepository.deleteById(id);
   }
 

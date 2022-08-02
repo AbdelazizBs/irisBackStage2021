@@ -19,9 +19,20 @@ public class PersonnelController {
   @Autowired PersonnelService personnelService;
 
   @PostMapping("/addPersonnel")
-  public PersonnelDTO addPersonnel(@RequestBody final PersonnelDTO personnelDTO)
+  public PersonnelDTO addPersonnel(
+      @RequestParam final String cin,
+      @RequestParam final String name,
+      @RequestParam final String company,
+      @RequestParam final String address,
+      @RequestParam final String phone,
+      @RequestParam final String country,
+      @RequestParam final String genre,
+      @RequestParam final Date dateNaissance,
+      @RequestParam final String email,
+      @RequestParam final String password)
       throws IOException {
-    return personnelService.addPersonnel(personnelDTO);
+    return personnelService.addPersonnel(
+        cin, name, company, address, phone, country, genre, dateNaissance, email, password);
     //     return  clientRepository.save(client);
   }
 
@@ -36,18 +47,17 @@ public class PersonnelController {
     return personnelService.getPersonnelById(idPersonnel);
   }
 
-  @GetMapping("/getPersonnelByLogin")
-  public PersonnelDTO getPersonnelByLogin(@RequestParam(value = "login") final String login)
+  @GetMapping("/getPersonnelByEmail")
+  public PersonnelDTO getPersonnelByEmail(@RequestParam(value = "email") final String login)
       throws IOException {
-    return personnelService.getPersonnelByLogin(login);
+    return personnelService.getPersonnelByEmail(login);
   }
 
   @PostMapping("/login")
   public PersonnelDTO login(
-      @Valid @RequestParam(value = "login") final String login,
-      @RequestParam(value = "password") final String password)
-      throws IOException {
-    return personnelService.login(login, password);
+      @Valid @RequestParam(value = "email") final String email,
+      @RequestParam(value = "password") final String password) {
+    return personnelService.login(email, password);
   }
 
   //  @PutMapping("/updatePersonnel/{idPersonnel}")
@@ -68,7 +78,7 @@ public class PersonnelController {
       @RequestParam final String country,
       @RequestParam final String genre,
       @RequestParam final Date dateNaissance,
-      @RequestParam final String login,
+      @RequestParam final String email,
       @RequestParam final String password,
       @PathVariable(value = "idPersonnel") final String idPersonnel)
       throws IOException {
@@ -81,7 +91,7 @@ public class PersonnelController {
         country,
         genre,
         dateNaissance,
-        login,
+        email,
         password,
         idPersonnel);
   }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface MachineRepository extends MongoRepository<Machine, String> {
   Machine findMachineById(String idMachine);
 
-  Machine findMachineByDesignation(String designation);
 
   // List<Machine> findAll();
 }

@@ -1,15 +1,18 @@
 package com.iris.irisback.dto;
 
+import com.iris.irisback.model.Compte;
+import com.iris.irisback.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class PersonnelDTO {
+public class PersonnelDTO{
 
   private String id;
   private String cin;
@@ -20,9 +23,11 @@ public class PersonnelDTO {
   private String phone;
   private String country;
   private String genre;
-
   private Date dateNaissance;
+  private Set<Role> personnelRoles;
+private Compte compte;
 
-  private String login;
-  private String password;
+  public PersonnelDTO() {
+
+  }
 }
