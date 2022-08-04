@@ -26,9 +26,9 @@ public class CommandeController {
       @RequestParam final String numCmd,
       @RequestParam final String typeCmd,
       @RequestParam final String nomClient,
-      @RequestParam final List<String> refIris)
-      throws IOException {
-    return commandeService.addCommande(dateCmd, numCmd, typeCmd, nomClient, refIris);
+      @RequestParam final List<String> articles) {
+
+    return commandeService.addCommande(dateCmd, numCmd, typeCmd, nomClient, articles);
   }
 
   @GetMapping("/commandes")
@@ -54,10 +54,20 @@ public class CommandeController {
     return ResponseEntity.noContent().build();
   }
 
-//  @PutMapping("/updateCommande/{commandeId}")
-//  public CommandeDTO updateCommande(
-//      @RequestBody final CommandeDTO commandeDTO,
-//      @PathVariable("commandeId") final String commandeId) {
-//    return commandeService.updateCommande(commandeDTO, commandeId);
-//  }
+  @PutMapping("/updateCommande/{commandeId}")
+  public CommandeDTO updateCommande(
+          @RequestParam final Date dateCmd,
+          @RequestParam final String numCmd,
+          @RequestParam final String typeCmd,
+          @RequestParam final String nomClient,
+          @RequestParam final List<String> articles,
+      @PathVariable("commandeId") final String commandeId) {
+    return commandeService.updateCommande(dateCmd, numCmd, typeCmd, nomClient, articles, commandeId);
+  }
+  @PutMapping("/ajouterAcmd/{idArticle}/{idCommande}")
+  public CommandeDTO ajouterAcmd(
+          @PathVariable("idArticle") final String idArticle,
+          @PathVariable("idCommande") final String idCommande) {
+    return commandeService.ajouterAcmd(idArticle, idCommande);
+  }
 }

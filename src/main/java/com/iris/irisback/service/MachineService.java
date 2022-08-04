@@ -63,7 +63,6 @@ public class MachineService {
         pesonnel -> personnelList.add(personnelRepository.findPersonnelByName(pesonnel)));
     machine.setPersonnel(personnelList);
     machine.setEtapeProduction(etapeProduction);
-    machine.setEtapeProduction(etapeProduction);
     return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
   }
 
@@ -93,7 +92,7 @@ public class MachineService {
       final List<String> nomPersonnel,
       final String etat,
       final String idMachine)
-      throws IOException {
+        {
     return machineRepository
         .findById(idMachine)
         .map(
@@ -116,18 +115,41 @@ public class MachineService {
         .orElseThrow(() -> new NotFoundException(idMachine + " not found"));
   }
 
-  public void deleteMachine(final String id) throws IOException {
+  public void deleteMachine(final String id)   {
     machineRepository.deleteById(id);
   }
 
-  public MachineDTO etat(final String idMachine) {
-    final Machine machine = machineRepository.findMachineById(idMachine);
-      switch (machine.getEtat()) {
-          case "En repos" -> machine.setEtat("En marche");
-          case "En marche" -> machine.setEtat("En panne");
-          case "En panne" -> machine.setEtat("En Maintenance");
-          case "En Maintenance" -> machine.setEtat("En repos");
-      }
-    return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
-  }
+//  public MachineDTO etat(final String idMachine) {
+//    final Machine machine = machineRepository.findMachineById(idMachine);
+//      switch (machine.getEtat()) {
+//          case "En repos" -> machine.setEtat("En marche");
+//          case "En marche" -> machine.setEtat("En panne");
+//          case "En panne" -> machine.setEtat("En Maintenance");
+//          case "En Maintenance" -> machine.setEtat("En repos");
+//      }
+//    return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
+//  }
+
+    public MachineDTO setEtatEnRepos(final String idMachine) {
+        final Machine machine = machineRepository.findMachineById(idMachine);
+machine.setEtat("En repos");
+        return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
+    }
+    public MachineDTO setEtatEnMaintenance(final String idMachine) {
+        final Machine machine = machineRepository.findMachineById(idMachine);
+        machine.setEtat("En Maintenance");
+        return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
+    }
+    public MachineDTO setEtatEnPanne(final String idMachine) {
+        final Machine machine = machineRepository.findMachineById(idMachine);
+        machine.setEtat("En panne");
+        return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
+    }
+    public MachineDTO setEtatEnmarche(final String idMachine) {
+        final Machine machine = machineRepository.findMachineById(idMachine);
+machine.setEtat("En marche");
+        return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
+}
+
+
 }

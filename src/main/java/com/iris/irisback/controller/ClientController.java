@@ -1,5 +1,6 @@
 package com.iris.irisback.controller;
 
+import com.iris.irisback.dto.ArticleDTO;
 import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.service.ClientService;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,14 @@ public class ClientController {
   }
 
 
-
+  @GetMapping("/getArticleByIdClient/{idClient}")
+  public List<ArticleDTO> getArticleByIdClient(@PathVariable(value = "idClient") final String idClient){
+    return clientService.getArticleByIdClient(idClient);
+  }
+  @GetMapping("/getListArticleClientByNomClient/{nomClient}")
+  public List<ArticleDTO> getListArticleClientByNomClient(@PathVariable(value = "nomClient") final String nomClient){
+    return clientService.getArticleByNomClient(nomClient);
+  }
   @PostMapping("/addClient")
   public ClientDTO addClient(
           @RequestParam final String nom,
@@ -29,11 +37,11 @@ public class ClientController {
           @RequestParam final String phone,
           @RequestParam final String country,
           @RequestParam final String reference,
-          @RequestParam final String refArticle,
+          @RequestParam final List<String> articlesRefIris,
           @RequestParam final String email
           )
         {
-    return clientService.addClient(nom,company,address,phone,country,reference,refArticle,email);
+    return clientService.addClient(nom,company,address,phone,country,reference,articlesRefIris,email);
     //     return  clientRepository.save(client);
   }
 
@@ -45,11 +53,11 @@ public class ClientController {
       @RequestParam final String phone,
       @RequestParam final String country,
       @RequestParam final String reference,
-      @RequestParam final String refArticle,
+      @RequestParam final List<String> articlesRefIris,
       @RequestParam final String email,
       @PathVariable(value = "idClient") final String idClient)
         {
-    return clientService.updateClient(nom,company,address,phone,country,email,reference,refArticle, idClient);
+    return clientService.updateClient(nom,company,address,phone,country,email,reference,articlesRefIris, idClient);
   }
 
 //  @PostMapping("/login")

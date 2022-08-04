@@ -11,7 +11,6 @@ import com.iris.irisback.repository.ClientRepository;
 import com.iris.irisback.repository.CommandeRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,20 +36,21 @@ public class CommandeService {
       final String numCmd,
       final String typeCmd,
       final String nomClient,
-      final List<String> refIris)
-      throws IOException {
+      final List<String> articles)
+        {
     final CommandeDTO commandeDTO = new CommandeDTO();
     commandeDTO.setDateCmd(dateCmd);
-    commandeDTO.setRefIris(refIris);
+    commandeDTO.setArticles(articles);
     commandeDTO.setNomClient(nomClient);
     commandeDTO.setTypeCmd(typeCmd);
     commandeDTO.setNumCmd(numCmd);
     final Commande commande1 = CommandeMapper.MAPPER.toCommande(commandeDTO);
-    final List<Article> articles = new ArrayList<>();
+    final List<Article> articles1 = new ArrayList<>();
     commandeDTO
-        .getRefIris()
-        .forEach(codeArticle -> articles.add(articleRepository.findArticleByRefIris(codeArticle) .orElseThrow(() -> new NotFoundException(codeArticle + " not found"))));
-    commande1.setArticles(articles);
+        .getArticles()
+        .forEach(codeArticle -> articles1.add(articleRepository.findArticleByRefIris(codeArticle)
+                .orElseThrow(() -> new NotFoundException(codeArticle + " not found"))));
+    commande1.setArticles(articles1);
     final Client client = clientRepository.findClientByNom(commandeDTO.getNomClient());
     commande1.setClient(client);
     return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande1));
@@ -70,7 +70,7 @@ public class CommandeService {
     return CommandeMapper.MAPPER.toCommandeDTO(commande);
   }
 
-  public List<CommandeDTO> Commandes() throws IOException {
+  public List<CommandeDTO> Commandes()   {
     final List<Commande> commandes = commandeRepository.findAll();
     return commandes.stream()
         .map(commande -> CommandeMapper.MAPPER.toCommandeDTO(commande))
@@ -81,21 +81,47 @@ public class CommandeService {
     commandeRepository.deleteById(id);
   }
 
-//  public CommandeDTO updateCommande(final CommandeDTO commandeDTO, final String commandeId) {
-//    return commandeRepository
-//        .findById(commandeId)
-//        .map(
-//            commande -> {
-//              commande.setTypeCmd(commandeDTO.getTypeCmd());
-//              commande.setNumCmd(commandeDTO.getNumCmd());
-//              commande.setDateCmd(commandeDTO.getDateCmd());
-//              final List<Article> list =
-//                  commandeDTO.getRefIris().stream()
-//                      .map(articleRepository::findArticleByRefIris)
-//                      .collect(toList());
-//              commande.setArticles(list);
-//              return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
-//            })
-//        .orElseThrow(() -> new NotFoundException("Commande Id  " + commandeId + " not found"));
-//  }
+  public CommandeDTO updateCommande(  final Date dateCmd,
+                                      final String numCmd,
+                                      final String typeCmd,
+                                      final String nomClient,
+                                      final List<String> articles,
+                                      final String commandeId) {
+    return commandeRepository
+        .findById(commandeId)
+        .map(
+            commande -> {
+              commande.setTypeCmd(typeCmd);
+              commande.setNumCmd(numCmd);
+              commande.setDateCmd(dateCmd);
+              final Client client = clientRepository.findClientByNom(nomClient);
+              commande.setClient(client);
+              final List<Article> articles1 = new ArrayList<>();
+              articles
+                      .forEach(article -> articles1.add(articleRepository.findArticleByRefIris(article)
+                              .orElseThrow(() -> new NotFoundException(article + " not found"))));
+              commande.setArticles(articles1);
+              return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
+            })
+        .orElseThrow(() -> new NotFoundException("Commande Id  " + commandeId + " not found"));
+  }
+
+    public CommandeDTO ajouterAcmd(  final String idArticle,
+                                        final String idCommande) {
+        return commandeRepository
+                .findById(idCommande)
+                .map(
+                        commande -> {
+                            final Article article = articleRepository.findArticleById(idArticle)
+                                    .orElseThrow(() -> new NotFoundException(idArticle + " not found"));
+                            final List<Article> articles1 = new ArrayList<>();
+                            articles1.add(article);
+                            commande.getArticles()
+                                    .forEach(a -> articles1.add(articleRepository.findArticleByRefIris(a.getRefIris())
+                                            .orElseThrow(() -> new NotFoundException(a + " not found"))));
+                            commande.setArticles(articles1);
+                            return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
+                        })
+                .orElseThrow(() -> new NotFoundException("Commande Id  " + idCommande + " not found"));
+    }
 }

@@ -7,6 +7,8 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -21,7 +23,7 @@ public class Client {
   private String country;
   private String email;
   private String reference;
-  private String refArticle;
+  private List<Article> articles;
 
   //  private String password;
   private Boolean active;

@@ -96,8 +96,20 @@ public class MachineController {
     return ResponseEntity.noContent().build();
   }
 
-  @PutMapping("/etat/{idMachine}")
-  public MachineDTO etat(@PathVariable(value = "idMachine") final String idMachine) {
-    return machineService.etat(idMachine);
+  @PutMapping("/setEtatEnRepos/{idMachine}")
+  public MachineDTO setEtatEnRepos(@PathVariable(value = "idMachine") final String idMachine) {
+    return machineService.setEtatEnRepos(idMachine);
+  }
+  @PutMapping("/setEtatEnMaintenance/{idMachine}")
+  public MachineDTO setEtatEnMaintenance(@PathVariable(value = "idMachine") final String idMachine) {
+    return machineService.setEtatEnMaintenance(idMachine);
+  }
+  @PutMapping("/setEtatEnPanne/{idMachine}")
+  public MachineDTO setEtatEnPanne(@PathVariable(value = "idMachine") final String idMachine) {
+    return machineService.setEtatEnPanne(idMachine);
+  }
+  @PutMapping("/setEtatEnmarche/{idMachine}")
+  public MachineDTO setEtatEnmarche(@PathVariable(value = "idMachine") final String idMachine) {
+    return machineService.setEtatEnmarche(idMachine);
   }
 }
