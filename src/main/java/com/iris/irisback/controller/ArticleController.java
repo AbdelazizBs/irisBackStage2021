@@ -22,10 +22,10 @@ public class ArticleController {
   public ArticleDTO addArticle(
       @RequestParam final String refIris,
       @RequestParam final String refClient,
+      @RequestParam final String clientName,
       @RequestParam final List<String> nomEtapeProductions) {
-    return articleService.addArticle(refIris, refClient, nomEtapeProductions);
+    return articleService.addArticle(refIris, refClient,clientName, nomEtapeProductions);
   }
-// add put method to update article and add a new one refArticle get from path variable
 
 
 
@@ -44,13 +44,23 @@ public class ArticleController {
     return articleService.articles();
   }
 
+
+  @GetMapping("/getArticleByIdClient/{idClient}")
+  public List<ArticleDTO> getArticleByIdClient(@PathVariable(value = "idClient") final String idClient){
+    return articleService.getArticleByIdClient(idClient);
+  }
+  @GetMapping("/getListArticleClientByNomClient/{nomClient}")
+  public List<ArticleDTO> getListArticleClientByNomClient(@PathVariable(value = "nomClient") final String nomClient){
+    return articleService.getArticleByNomClient(nomClient);
+  }
   @PutMapping("/updateArticle/{idArticle}")
   public ArticleDTO updateArticle(
       @RequestParam final String refIris,
       @RequestParam final String refClient,
+      @RequestParam final String clientName,
       @RequestParam final List<String> nomEtapeProductions,
       @PathVariable(value = "idArticle") final String idArticle) {
-    return articleService.updateArticle(refIris, refClient, nomEtapeProductions, idArticle);
+    return articleService.updateArticle(refIris, refClient,clientName, nomEtapeProductions, idArticle);
   }
 
   @DeleteMapping("/deleteArticle/{idArticle}")
@@ -64,8 +74,8 @@ public class ArticleController {
   public List<String> getRefIris() {
     return articleService.getRefIris();
   }
-  @GetMapping("/getListArticlesNonLiée")
-  public List<String> getListArticlesNonLiée() {
+  @GetMapping("/getListArticlesNonLiee")
+  public List<ArticleDTO> getListArticlesNonLiée() {
     return articleService.getListArticlesNonLiée();
   }
 }

@@ -15,6 +15,8 @@ public class ArticleDTO {
   private String refIris;
   private String refClient;
   private List<String> nomEtapeProductions;
+  private String clientName;
+
 
   public ArticleDTO() {}
 }

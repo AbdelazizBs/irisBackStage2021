@@ -16,9 +16,5 @@ public class EtapeProduction {
   @Id private String id;
   private String nomEtape;
   private String typeEtape;
-
-  // private List<Article> articles;
-  //   private  Machine machine ;
-
   public EtapeProduction() {}
 }

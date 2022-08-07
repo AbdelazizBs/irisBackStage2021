@@ -19,6 +19,7 @@ public class Article {
   private String refIris;
   private String refClient;
   private List<EtapeProduction> etapeProductions;
+  private Client client;
 
 
   public Article() {}

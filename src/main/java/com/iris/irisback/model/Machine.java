@@ -18,10 +18,8 @@ import java.util.List;
 @Document(collection = "machine")
 public class Machine {
   @Id private String id;
-
   @Pattern(regexp = "^[a-zA-Z]*$")
   private String designation;
-
   private String reference;
   private EtapeProduction etapeProduction;
   private String nombreConducteur;

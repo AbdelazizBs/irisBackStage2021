@@ -4,6 +4,7 @@ import com.iris.irisback.dto.ArticleDTO;
 import com.iris.irisback.exception.NotFoundException;
 import com.iris.irisback.mapper.ArticleMapper;
 import com.iris.irisback.model.Article;
+import com.iris.irisback.model.Client;
 import com.iris.irisback.model.EtapeProduction;
 import com.iris.irisback.repository.ArticleRepository;
 import com.iris.irisback.repository.ClientRepository;
@@ -29,6 +30,16 @@ final ClientRepository clientRepository;
     this.clientRepository = clientRepository;
   }
 
+
+  public List <ArticleDTO> getArticleByIdClient(final String idClient) {
+    final Client client = clientRepository.findClientById(idClient);
+    return articleRepository.findArticleByClient(client).stream().map(article -> ArticleMapper.MAPPER.toArticleDTO(article)).collect(Collectors.toList());
+  }
+
+  public List <ArticleDTO> getArticleByNomClient(final String nomClient) {
+    final Client client = clientRepository.findClientByNom(nomClient);
+    return articleRepository.findArticleByClient(client).stream().map(article -> ArticleMapper.MAPPER.toArticleDTO(article)).collect(Collectors.toList());
+  }
   public List<ArticleDTO> articles() {
     final List<Article> articles = articleRepository.findAll();
     return articles.stream()
@@ -47,10 +58,21 @@ final ClientRepository clientRepository;
   }
 
   public ArticleDTO addArticle(
-      final String refIris, final String refClient, final List<String> nomEtapeProductions) {
+      final String refIris, final String refClient,final String clientName, final List<String> nomEtapeProductions) {
     final ArticleDTO articleDTO = new ArticleDTO();
     articleDTO.setRefIris(refIris);
     articleDTO.setRefClient(refClient);
+    final Client noClientExist = clientRepository.findClientByNom("NoClient");
+    if (noClientExist==null){
+      final Client fakeClient = new Client();
+     fakeClient.setNom("NoClient");
+      clientRepository.save(fakeClient);
+    }
+    if (clientName.equals("")) {
+      articleDTO.setClientName("NoClient");
+    }else {
+      articleDTO.setClientName(clientName);
+    }
     articleDTO.setNomEtapeProductions(nomEtapeProductions);
     final Article article = ArticleMapper.MAPPER.toArticle(articleDTO);
     final List<EtapeProduction> etapeProductions = new ArrayList<>();
@@ -61,13 +83,16 @@ final ClientRepository clientRepository;
                 etapeProductions.add(
                     etapeProductionRepository.findEtapeProductionByNomEtape(nomEtape)));
     article.setEtapeProductions(etapeProductions);
-
+    final Client client = clientRepository.findClientByNom(articleDTO.getClientName());
+    article.setClient(client);
     return ArticleMapper.MAPPER.toArticleDTO(articleRepository.save(article));
   }
+
 
   public ArticleDTO updateArticle(
       final String refIris,
       final String refClient,
+      final String clientName,
       final List<String> nomEtapeProductions,
       final String idArticle) {
     return articleRepository
@@ -82,6 +107,9 @@ final ClientRepository clientRepository;
                       etapeProductions.add(
                           etapeProductionRepository.findEtapeProductionByNomEtape(nomEtape)));
               article.setEtapeProductions(etapeProductions);
+              final Client client =
+                      clientRepository.findClientByNom(clientName);
+              article.setClient(client);
               return ArticleMapper.MAPPER.toArticleDTO(articleRepository.save(article));
             })
         .orElseThrow(() -> new NotFoundException(idArticle + " not found"));
@@ -97,9 +125,10 @@ final ClientRepository clientRepository;
         .collect(Collectors.toList());
   }
 
-  public List<String> getListArticlesNonLiée() {
+  public List<ArticleDTO> getListArticlesNonLiée() {
     return articleRepository.findAll().stream()
-            .map(Article::getRefIris)
-            .collect(Collectors.toList());
+        .filter(article -> article.getClient().getNom().equals("NoClient"))
+            .map(article -> ArticleMapper.MAPPER.toArticleDTO(article))
+        .collect(Collectors.toList());
   }
 }

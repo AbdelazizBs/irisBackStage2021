@@ -1,17 +1,13 @@
 package com.iris.irisback.service;
 
-import com.iris.irisback.dto.ArticleDTO;
 import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.exception.NotFoundException;
-import com.iris.irisback.mapper.ArticleMapper;
 import com.iris.irisback.mapper.ClientMapper;
-import com.iris.irisback.model.Article;
 import com.iris.irisback.model.Client;
 import com.iris.irisback.repository.ArticleRepository;
 import com.iris.irisback.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,17 +28,17 @@ public class ClientService {
 //  }
 
 
-    public List <ArticleDTO> getArticleByIdClient(final String idClient) {
-        return clientRepository.findClientById(idClient).getArticles().stream()
-                .map(article -> ArticleMapper.MAPPER.toArticleDTO(article))
-                .collect(Collectors.toList());
-    }
-
-    public List <ArticleDTO> getArticleByNomClient(final String nomClient) {
-        return clientRepository.findClientByNom(nomClient).getArticles().stream()
-                .map(article -> ArticleMapper.MAPPER.toArticleDTO(article))
-                .collect(Collectors.toList());
-    }
+//    public List <ArticleDTO> getArticleByIdClient(final String idClient) {
+//        return clientRepository.findClientById(idClient).getArticles().stream()
+//                .map(article -> ArticleMapper.MAPPER.toArticleDTO(article))
+//                .collect(Collectors.toList());
+//    }
+//
+//    public List <ArticleDTO> getArticleByNomClient(final String nomClient) {
+//        return clientRepository.findClientByNom(nomClient).getArticles().stream()
+//                .map(article -> ArticleMapper.MAPPER.toArticleDTO(article))
+//                .collect(Collectors.toList());
+//    }
 
     public ClientDTO getClientById(final String idClient)   {
     return ClientMapper.MAPPER.toClientDTO(clientRepository.findClientById(idClient));
@@ -54,8 +50,12 @@ public class ClientService {
 
     public List<ClientDTO> getListClient()   {
         return clientRepository.findAll().stream()
+                .filter(client -> !client.getNom().equals("NoClient"))
                 .map(client -> ClientMapper.MAPPER.toClientDTO(client))
                 .collect(Collectors.toList());
+//        return clientRepository.findAll().stream()
+//                .map(client -> ClientMapper.MAPPER.toClientDTO(client))
+//                .collect(Collectors.toList());
     }
 
     public void deleteClient(final String idClient) {
@@ -69,7 +69,6 @@ public class ClientService {
                                        final String phone,
                                        final String country,
                                        final String reference,
-                                       final List <String> articlesRefIris,
                                        final String email)
         {
   //  final Client clientExist = clientRepository.findClientByEmail(email);
@@ -86,11 +85,11 @@ public class ClientService {
     clientDTO.setPhone(phone);
     clientDTO.setReference(reference);
             final Client client = ClientMapper.MAPPER.toClient(clientDTO);
-            final List<Article> articleList = new ArrayList<>();
-            articlesRefIris.forEach(
-                    article -> articleList.add(articleRepository.findArticleByRefIris(article)
-                            .orElseThrow(() -> new NotFoundException(article + " not found"))));
-            client.setArticles(articleList);
+//            final List<Article> articleList = new ArrayList<>();
+//            articlesRefIris.forEach(
+//                    article -> articleList.add(articleRepository.findArticleByRefIris(article)
+//                            .orElseThrow(() -> new NotFoundException(article + " not found"))));
+//            client.setArticles(articleList);
 
     client.setActive(false);
     return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
@@ -103,7 +102,6 @@ public class ClientService {
                                       final String country,
                                       final String email,
                                       final String reference,
-                                      final List<String> articlesRefIris,
                                       final String idClient)
         {
     return clientRepository
@@ -116,11 +114,11 @@ public class ClientService {
               client.setEmail(email);
               client.setNom(nom);
               client.setReference(reference);
-                final List<Article> articleList = new ArrayList<>();
-                articlesRefIris.forEach(
-                        article -> articleList.add(articleRepository.findArticleByRefIris(article)
-                                .orElseThrow(() -> new NotFoundException(article + " not found"))));
-                client.setArticles(articleList);
+//                final List<Article> articleList = new ArrayList<>();
+//                articlesRefIris.forEach(
+//                        article -> articleList.add(articleRepository.findArticleByRefIris(article)
+//                                .orElseThrow(() -> new NotFoundException(article + " not found"))));
+//                client.setArticles(articleList);
               client.setPhone(phone);
               return ClientMapper.MAPPER.toClientDTO(clientRepository.save(client));
             })

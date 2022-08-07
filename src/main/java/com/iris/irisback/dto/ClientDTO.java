@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,13 +17,9 @@ public class ClientDTO {
   private String country;
   private String email;
   private String reference;
-  private List<String> articlesRefIris;
-
-//  private String password;
+//  private List<String> articlesRefIris;
   private Boolean active;
 
   public ClientDTO() {
-
   }
-  // private List<String> commandesId;
 }

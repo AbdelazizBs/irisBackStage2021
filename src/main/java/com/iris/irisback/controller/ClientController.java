@@ -1,13 +1,11 @@
 package com.iris.irisback.controller;
 
-import com.iris.irisback.dto.ArticleDTO;
 import com.iris.irisback.dto.ClientDTO;
 import com.iris.irisback.service.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,14 +19,14 @@ public class ClientController {
   }
 
 
-  @GetMapping("/getArticleByIdClient/{idClient}")
-  public List<ArticleDTO> getArticleByIdClient(@PathVariable(value = "idClient") final String idClient){
-    return clientService.getArticleByIdClient(idClient);
-  }
-  @GetMapping("/getListArticleClientByNomClient/{nomClient}")
-  public List<ArticleDTO> getListArticleClientByNomClient(@PathVariable(value = "nomClient") final String nomClient){
-    return clientService.getArticleByNomClient(nomClient);
-  }
+//  @GetMapping("/getArticleByIdClient/{idClient}")
+//  public List<ArticleDTO> getArticleByIdClient(@PathVariable(value = "idClient") final String idClient){
+//    return clientService.getArticleByIdClient(idClient);
+//  }
+//  @GetMapping("/getListArticleClientByNomClient/{nomClient}")
+//  public List<ArticleDTO> getListArticleClientByNomClient(@PathVariable(value = "nomClient") final String nomClient){
+//    return clientService.getArticleByNomClient(nomClient);
+//  }
   @PostMapping("/addClient")
   public ClientDTO addClient(
           @RequestParam final String nom,
@@ -37,11 +35,10 @@ public class ClientController {
           @RequestParam final String phone,
           @RequestParam final String country,
           @RequestParam final String reference,
-          @RequestParam final List<String> articlesRefIris,
           @RequestParam final String email
           )
         {
-    return clientService.addClient(nom,company,address,phone,country,reference,articlesRefIris,email);
+    return clientService.addClient(nom,company,address,phone,country,reference,email);
     //     return  clientRepository.save(client);
   }
 
@@ -53,11 +50,10 @@ public class ClientController {
       @RequestParam final String phone,
       @RequestParam final String country,
       @RequestParam final String reference,
-      @RequestParam final List<String> articlesRefIris,
       @RequestParam final String email,
       @PathVariable(value = "idClient") final String idClient)
         {
-    return clientService.updateClient(nom,company,address,phone,country,email,reference,articlesRefIris, idClient);
+    return clientService.updateClient(nom,company,address,phone,country,email,reference, idClient);
   }
 
 //  @PostMapping("/login")
@@ -101,7 +97,7 @@ public class ClientController {
   }
 
   @GetMapping("/getNomClients")
-  public List<String> getNomClients() throws IOException {
+  public List<String> getNomClients() {
     return clientService.getNomClients();
   }
 }

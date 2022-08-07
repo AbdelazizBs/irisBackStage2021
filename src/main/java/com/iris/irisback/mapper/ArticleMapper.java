@@ -19,9 +19,11 @@ public abstract class ArticleMapper {
   public static ArticleMapper MAPPER = Mappers.getMapper(ArticleMapper.class);
 
   @Mapping(target = "nomEtapeProductions", ignore = true)
+  @Mapping(target = "clientName", ignore = true)
   public abstract ArticleDTO toArticleDTO(Article article);
 
   @Mapping(target = "etapeProductions", ignore = true)
+  @Mapping(target = "client", ignore = true)
   public abstract Article toArticle(ArticleDTO articleDTO);
 
   @AfterMapping
@@ -29,6 +31,8 @@ public abstract class ArticleMapper {
     final List<String> list =
         article.getEtapeProductions().stream().map(EtapeProduction::getNomEtape).collect(toList());
     articleDTO.setNomEtapeProductions(list);
+    articleDTO.setClientName(article.getClient().getNom());
+
   }
 
   @AfterMapping

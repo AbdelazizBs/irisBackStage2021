@@ -46,7 +46,7 @@ public class MachineService {
       final Date dateMaintenance,
       final List<String> nomPersonnel,
       final String etat)
-      throws IOException {
+        {
     final MachineDTO machineDTO = new MachineDTO();
     machineDTO.setDesignation(designation);
     machineDTO.setReference(reference);
@@ -119,16 +119,6 @@ public class MachineService {
     machineRepository.deleteById(id);
   }
 
-//  public MachineDTO etat(final String idMachine) {
-//    final Machine machine = machineRepository.findMachineById(idMachine);
-//      switch (machine.getEtat()) {
-//          case "En repos" -> machine.setEtat("En marche");
-//          case "En marche" -> machine.setEtat("En panne");
-//          case "En panne" -> machine.setEtat("En Maintenance");
-//          case "En Maintenance" -> machine.setEtat("En repos");
-//      }
-//    return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
-//  }
 
     public MachineDTO setEtatEnRepos(final String idMachine) {
         final Machine machine = machineRepository.findMachineById(idMachine);
