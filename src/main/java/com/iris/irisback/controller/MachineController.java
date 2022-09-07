@@ -27,7 +27,7 @@ public class MachineController {
       @RequestParam final Date dateCreation,
       @RequestParam final List<String> nomPersonnel,
       @RequestParam final String etat)
-      throws IOException {
+        {
     return machineService.addMachine(
         designation,
         reference,

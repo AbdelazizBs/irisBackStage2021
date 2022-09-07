@@ -13,17 +13,12 @@ import java.util.Date;
 @Setter
 @ToString
 @AllArgsConstructor
-@Document(collection = "ordreFabrication")
-public class OrdreFabrication {
-  @Id private String id;
-  private Date dateLancement;
-  private String debutHeure;
-  private String finHeure;
-  private String commentaire;
-  private String qtePremierChoix;
-  private String qteNonConforme;
-
-  public OrdreFabrication() {
-
-  }
+@Document(collection = "LigneCommand")
+public class LigneCommand {
+    @Id
+    private String id;
+    private Commande commande;
+    private Article article;
+    private String qte;
+    private Date delai ;
 }

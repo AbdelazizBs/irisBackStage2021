@@ -148,6 +148,9 @@ public class ClientService {
   }
 
   public List<String> getNomClients()   {
-    return clientRepository.findAll().stream().map(Client::getNom).collect(Collectors.toList());
+    return clientRepository.findAll().stream()
+            .filter(client -> !client.getNom().equals("NoClient"))
+            .map(Client::getNom).collect(Collectors.toList());
+
   }
 }

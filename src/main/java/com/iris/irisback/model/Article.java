@@ -18,8 +18,10 @@ public class Article {
   @Id private String id;
   private String refIris;
   private String refClient;
-  private List<EtapeProduction> etapeProductions;
+    private String designation;
+    private List<EtapeProduction> etapeProductions;
   private Client client;
+ private OrdreFabrication ordreFabrication ;
 
 
   public Article() {}

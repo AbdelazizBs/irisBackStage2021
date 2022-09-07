@@ -23,8 +23,10 @@ public class ArticleController {
       @RequestParam final String refIris,
       @RequestParam final String refClient,
       @RequestParam final String clientName,
+      @RequestParam final String designation,
+      @RequestParam final String idOf,
       @RequestParam final List<String> nomEtapeProductions) {
-    return articleService.addArticle(refIris, refClient,clientName, nomEtapeProductions);
+    return articleService.addArticle(refIris,designation, refClient,clientName,idOf, nomEtapeProductions);
   }
 
 
@@ -53,14 +55,25 @@ public class ArticleController {
   public List<ArticleDTO> getListArticleClientByNomClient(@PathVariable(value = "nomClient") final String nomClient){
     return articleService.getArticleByNomClient(nomClient);
   }
+  @GetMapping("/{idCmd}")
+  public List<ArticleDTO> getArticlesByIdCommande(@PathVariable(value = "idCmd") final String idCmd){
+    return articleService.getArticlesByIdCommande(idCmd);
+  }
   @PutMapping("/updateArticle/{idArticle}")
   public ArticleDTO updateArticle(
       @RequestParam final String refIris,
       @RequestParam final String refClient,
       @RequestParam final String clientName,
+      @RequestParam final String designation,
+      @RequestParam final String idOf,
       @RequestParam final List<String> nomEtapeProductions,
       @PathVariable(value = "idArticle") final String idArticle) {
-    return articleService.updateArticle(refIris, refClient,clientName, nomEtapeProductions, idArticle);
+    return articleService.updateArticle(refIris,designation, refClient,clientName,idOf, nomEtapeProductions, idArticle);
+  }
+  @PutMapping("/addToClient/{nomClient}/{idArticle}")
+  public ArticleDTO addToClient(  @PathVariable(value = "idArticle") final String idArticle,@PathVariable(value = "nomClient") final String nomClient
+                                ) {
+    return articleService.addToClient(idArticle,nomClient);
   }
 
   @DeleteMapping("/deleteArticle/{idArticle}")

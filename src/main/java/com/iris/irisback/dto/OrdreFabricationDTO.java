@@ -17,7 +17,6 @@ public class OrdreFabricationDTO {
   private String commentaire;
   private String qtePremierChoix;
   private String qteNonConforme;
-  private String codeArticles;
 
   public OrdreFabricationDTO() {}
 }

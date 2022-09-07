@@ -1,9 +1,7 @@
 package com.iris.irisback.service;
 
 import com.iris.irisback.dto.OrdreFabricationDTO;
-import com.iris.irisback.exception.NotFoundException;
 import com.iris.irisback.mapper.OrdreFabricationMapper;
-import com.iris.irisback.model.Article;
 import com.iris.irisback.model.OrdreFabrication;
 import com.iris.irisback.repository.ArticleRepository;
 import com.iris.irisback.repository.OrdreFabricationRepository;
@@ -30,8 +28,7 @@ public class OrdreFabricationService {
       final String finHeure,
       final String commentaire,
       final String qtePremierChoix,
-      final String qteNonConforme,
-      final String codeArticles) {
+      final String qteNonConforme) {
     final OrdreFabricationDTO ordreFabricationDTO = new OrdreFabricationDTO();
     ordreFabricationDTO.setCommentaire(commentaire);
     ordreFabricationDTO.setDateLancement(dateLancement);
@@ -41,9 +38,6 @@ public class OrdreFabricationService {
     ordreFabricationDTO.setQtePremierChoix(qtePremierChoix);
     final OrdreFabrication ordreFabrication =
         OrdreFabricationMapper.MAPPER.toOrdreFabrication(ordreFabricationDTO);
-    final Article article = articleRepository.findArticleByRefIris(codeArticles)
-            .orElseThrow(() -> new NotFoundException(codeArticles + " not found"));;
-    ordreFabrication.setArticle(article);
     return OrdreFabricationMapper.MAPPER.toOrdreFabricationDTO(
         ordreFabricationRepository.save(ordreFabrication));
   }

@@ -1,6 +1,7 @@
 package com.iris.irisback.controller;
 
 import com.iris.irisback.dto.CommandeDTO;
+import com.iris.irisback.model.Commande;
 import com.iris.irisback.service.CommandeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class CommandeController {
   }
 
   @GetMapping("/commandes")
-  List<CommandeDTO> Commandes() throws IOException {
+  List<Commande> Commandes()   {
     return commandeService.Commandes();
   }
 
@@ -46,7 +47,11 @@ public class CommandeController {
   CommandeDTO getCmdById(@PathVariable(value = "idCmd") final String idCmd) throws IOException {
     return commandeService.getCmdById(idCmd);
   }
-
+  @PutMapping("/addToCommand/{idArticle}/{idCmd}")
+  public CommandeDTO addToCommand(@PathVariable(value = "idArticle") final String idArticle, @PathVariable(value = "idCmd") final String idCmd
+  ) {
+    return commandeService.addToCommand(idArticle,idCmd);
+  }
   @DeleteMapping("/deleteCommande/{idCommande}")
   public ResponseEntity<Void> deleteCommande(
       @PathVariable(value = "idCommande") final String idCommande) throws IOException {

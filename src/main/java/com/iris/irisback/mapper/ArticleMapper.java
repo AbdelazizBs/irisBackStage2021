@@ -13,6 +13,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+
 @Mapper
 public abstract class ArticleMapper {
 
@@ -20,10 +21,12 @@ public abstract class ArticleMapper {
 
   @Mapping(target = "nomEtapeProductions", ignore = true)
   @Mapping(target = "clientName", ignore = true)
+  @Mapping(target = "idOf", ignore = true)
   public abstract ArticleDTO toArticleDTO(Article article);
 
   @Mapping(target = "etapeProductions", ignore = true)
   @Mapping(target = "client", ignore = true)
+  @Mapping(target = "ordreFabrication", ignore = true)
   public abstract Article toArticle(ArticleDTO articleDTO);
 
   @AfterMapping
@@ -32,6 +35,7 @@ public abstract class ArticleMapper {
         article.getEtapeProductions().stream().map(EtapeProduction::getNomEtape).collect(toList());
     articleDTO.setNomEtapeProductions(list);
     articleDTO.setClientName(article.getClient().getNom());
+    articleDTO.setIdOf(article.getOrdreFabrication().getId());
 
   }
 

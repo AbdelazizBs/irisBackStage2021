@@ -28,12 +28,9 @@ public abstract class MachineMapper {
   @AfterMapping
   void updateMachineDTO(final Machine machine, @MappingTarget final MachineDTO machineDTO) {
     machineDTO.setNomEtapeProduction(machine.getEtapeProduction().getNomEtape());
-//    if (machine.getPersonnel()!= null){
     final List<String> list =
         machine.getPersonnel().stream().map(Personnel::getName).collect(toList());
     machineDTO.setNomPersonnel(list);
-//    }
-//    machineDTO.setNomPersonnel(null);
   }
 
   @AfterMapping

@@ -27,7 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     configuration.setAllowCredentials(true);
     configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
     configuration.setAllowedMethods(Arrays.asList("*"));
-    // configuration.setAllowedHeaders(Arrays.asList("*"));
     configuration.setAllowedHeaders(Arrays.asList("*"));
     configuration.setExposedHeaders(Arrays.asList("*"));
     configuration.setAllowedMethods(Arrays.asList("*"));
@@ -50,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/article/**")
             .permitAll() // accès pour tous users
             .antMatchers("/commande/**")
+            .permitAll() // accès pour tous users
+            .antMatchers("/ligneCommand/**")
             .permitAll() // accès pour tous users
             .antMatchers("/ordreFabrication/**")
             .permitAll() // accès pour tous users

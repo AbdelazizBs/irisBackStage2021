@@ -12,7 +12,6 @@ import com.iris.irisback.repository.MachineRepository;
 import com.iris.irisback.repository.PersonnelRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,13 +50,24 @@ public class MachineService {
     machineDTO.setDesignation(designation);
     machineDTO.setReference(reference);
     machineDTO.setEtat(etat);
-    machineDTO.setNomEtapeProduction(nomEtapeProduction);
     machineDTO.setDateCreation(dateCreation);
     machineDTO.setDateMaintenance(dateMaintenance);
     machineDTO.setNombreConducteur(nombreConducteur);
-    final Machine machine = MachineMapper.MAPPER.toMachine(machineDTO);
+            final EtapeProduction nomEtapeExiste = etapeProductionRepository.findEtapeProductionByNomEtape("NoEtape");
+            if (nomEtapeExiste==null){
+                final EtapeProduction fakeEtape = new EtapeProduction();
+                fakeEtape.setNomEtape("NoEtape");
+                etapeProductionRepository.save(fakeEtape);
+            }
+            if (nomEtapeProduction.equals("")) {
+                machineDTO.setNomEtapeProduction("NoEtape");
+            }else {
+                machineDTO.setNomEtapeProduction(nomEtapeProduction);
+            }
+
+            final Machine machine = MachineMapper.MAPPER.toMachine(machineDTO);
     final EtapeProduction etapeProduction =
-        etapeProductionRepository.findEtapeProductionByNomEtape(nomEtapeProduction);
+        etapeProductionRepository.findEtapeProductionByNomEtape(machineDTO.getNomEtapeProduction());
     final List<Personnel> personnelList = new ArrayList<>();
     nomPersonnel.forEach(
         pesonnel -> personnelList.add(personnelRepository.findPersonnelByName(pesonnel)));
@@ -66,17 +76,17 @@ public class MachineService {
     return MachineMapper.MAPPER.toMachineDTO(machineRepository.save(machine));
   }
 
-  public MachineDTO getMachineById(final String idMachine) throws IOException {
+  public MachineDTO getMachineById(final String idMachine)   {
     return MachineMapper.MAPPER.toMachineDTO(machineRepository.findMachineById(idMachine));
   }
 
-  public List<String> getNomMachine() throws IOException {
+  public List<String> getNomMachine()   {
     return machineRepository.findAll().stream()
         .map(Machine::getDesignation)
         .collect(Collectors.toList());
   }
 
-  public List<MachineDTO> getLisMachine() throws IOException {
+  public List<MachineDTO> getLisMachine()   {
     return machineRepository.findAll().stream()
         .map(machine -> MachineMapper.MAPPER.toMachineDTO(machine))
         .collect(Collectors.toList());

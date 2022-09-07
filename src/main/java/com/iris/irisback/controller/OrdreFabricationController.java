@@ -24,15 +24,13 @@ public class OrdreFabricationController {
       @RequestParam final String finHeure,
       @RequestParam final String commentaire,
       @RequestParam final String qtePremierChoix,
-      @RequestParam final String qteNonConforme,
-      @RequestParam final String codeArticles) {
+      @RequestParam final String qteNonConforme) {
     return ordreFabricationService.addOf(
         dateLancement,
         debutHeure,
         finHeure,
         commentaire,
         qtePremierChoix,
-        qteNonConforme,
-        codeArticles);
+        qteNonConforme);
   }
 }

@@ -12,13 +12,14 @@ import com.iris.irisback.repository.CommandeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CommandeService {
-  private final CommandeRepository commandeRepository;
+  private final CommandeRepository  commandeRepository;
   private final ClientRepository clientRepository;
   private final ArticleRepository articleRepository;
 
@@ -70,12 +71,24 @@ public class CommandeService {
     return CommandeMapper.MAPPER.toCommandeDTO(commande);
   }
 
-  public List<CommandeDTO> Commandes()   {
+  public List<Commande> Commandes()   {
     final List<Commande> commandes = commandeRepository.findAll();
-    return commandes.stream()
-        .map(commande -> CommandeMapper.MAPPER.toCommandeDTO(commande))
-        .collect(Collectors.toList());
+    return  commandes ;
+//    return commandes.stream()
+//        .map(commande -> CommandeMapper.MAPPER.toCommandeDTO(commande))
+//        .collect(Collectors.toList());
   }
+    public CommandeDTO  addToCommand(final String idArticle, final String idCmd) {
+        final Article article = articleRepository.findArticleById(idArticle).orElseThrow(() -> new NotFoundException(idArticle + " not found"));
+        return commandeRepository
+                .findCommandeById(idCmd)
+                .map(
+                        commande -> {
+                            commande.setArticles(Collections.singletonList(article));
+                            return CommandeMapper.MAPPER.toCommandeDTO(commandeRepository.save(commande));
+                        })
+                .orElseThrow(() -> new NotFoundException(idCmd + " not found"));
+    }
 
   public void deleteCommande(final String id)   {
     commandeRepository.deleteById(id);
