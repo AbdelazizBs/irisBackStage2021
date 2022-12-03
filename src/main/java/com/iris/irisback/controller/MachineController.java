@@ -91,7 +91,7 @@ public class MachineController {
 
   @DeleteMapping("/deleteMachine/{idMachine}")
   public ResponseEntity<Void> deleteMachine(
-      @PathVariable(value = "idMachine") final String idMachine) throws IOException {
+      @PathVariable(value = "idMachine") final String idMachine)   {
     machineService.deleteMachine(idMachine);
     return ResponseEntity.noContent().build();
   }

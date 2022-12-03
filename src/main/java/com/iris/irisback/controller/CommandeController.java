@@ -54,7 +54,7 @@ public class CommandeController {
   }
   @DeleteMapping("/deleteCommande/{idCommande}")
   public ResponseEntity<Void> deleteCommande(
-      @PathVariable(value = "idCommande") final String idCommande) throws IOException {
+      @PathVariable(value = "idCommande") final String idCommande)   {
     commandeService.deleteCommande(idCommande);
     return ResponseEntity.noContent().build();
   }
